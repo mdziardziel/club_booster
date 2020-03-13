@@ -1,6 +1,6 @@
 class AuthenticationController < ApplicationController
   def create
-    if generate_jwt
+    if generate_jwt.present?
       render json: { jwt: new_jwt }, status: :created
     else
       render json: { message: 'credentials invalid' }, status: :unauthorized

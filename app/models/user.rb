@@ -12,8 +12,12 @@ class User < ApplicationRecord
   end
   
   def generate_jwt
-    update!(jwt_version: jwt_version + 1)
+    return if expire_previous_jwt.blank?
 
-    ::JsonWebToken.encode({ user_id: id, version: jwt_version }, TOKEN_EXPIRATION_TIME.from_now)
+    ::JsonWebToken.encode({ sub: id, ver: jwt_version }, TOKEN_EXPIRATION_TIME.from_now)
+  end
+
+  def expire_previous_jwt
+    update(jwt_version: jwt_version + 1)
   end
 end
