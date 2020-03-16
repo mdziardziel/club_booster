@@ -13,13 +13,13 @@ RSpec.describe 'Users' do
       end
 
 
-      response 200, description: 'Return all the available users'  do
+      response 200, 'Return all the available users'  do
         let(:Authorization) { users.first.generate_jwt }
 
         run_test!
       end
 
-      response 401, description: 'Return all the available users'  do
+      response 401, 'Return all the available users'  do
         let(:Authorization) { 'wrong-jwt' }
 
         run_test!
@@ -40,14 +40,14 @@ RSpec.describe 'Users' do
       end
 
 
-      response 200, description: 'Return all the available users'  do
+      response 200, 'Return all the available users'  do
         let(:Authorization) { user.generate_jwt }
         let(:id) { user.id }
 
         run_test!
       end
 
-      response 401, description: 'Return all the available users'  do
+      response 401, 'Return all the available users'  do
         let(:Authorization) { 'wrong-jwt' }
         let(:id) { user.id }
 
