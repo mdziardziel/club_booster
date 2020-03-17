@@ -18,6 +18,7 @@ RSpec.describe 'Users' do
 
         run_test!
       end
+      
 
       response 401, 'Return all the available users'  do
         let(:Authorization) { 'wrong-jwt' }

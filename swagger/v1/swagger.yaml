@@ -1,9 +1,41 @@
 ---
-openapi: 3.0.1
+swagger: '2.0'
 info:
   title: API V1
   version: v1
 paths:
+  "/api/authentication":
+    post:
+      summary: Authenticate
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - authentication
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            user:
+              type: object
+              required: true
+              properties:
+                email:
+                  type: string
+                  example: test_user@user.pl
+                password:
+                  type: string
+                  example: test_user
+      responses:
+        '201':
+          description: 'Returns jwt for '
+        '401':
+          description: invalid credentials
   "/api/users":
     get:
       summary: Get users
