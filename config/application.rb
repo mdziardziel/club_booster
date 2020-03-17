@@ -24,6 +24,8 @@ module ClubBooster
 
     config.autoload_paths << Rails.root.join('lib')
 
+    config.to_prepare { DeviseController.respond_to :json }
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

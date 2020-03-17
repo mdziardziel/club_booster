@@ -33,12 +33,12 @@ paths:
                   example: test_user
       responses:
         '201':
-          description: 'Returns jwt for '
+          description: Returns jwt for authenticated user
         '401':
           description: invalid credentials
   "/api/users":
-    get:
-      summary: Get users
+    post:
+      summary: Sign up
       consumes:
       - application/json
       produces:
@@ -46,33 +46,25 @@ paths:
       tags:
       - users
       parameters:
-      - name: Authorization
-        in: header
-        type: string
-      responses:
-        '200':
-          description: Return all the available users
-        '401':
-          description: Return all the available users
-  "/api/users/{id}":
-    get:
-      summary: Get user
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      tags:
-      - users
-      parameters:
-      - name: Authorization
-        in: header
-        type: string
-      - name: id
-        in: path
-        type: integer
+      - name: body
+        in: body
         required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            user:
+              type: object
+              required: true
+              properties:
+                email:
+                  type: string
+                  example: test_user@user.pl
+                password:
+                  type: string
+                  example: test_user
       responses:
-        '200':
-          description: Return all the available users
-        '401':
-          description: Return all the available users
+        '201':
+          description: creates new user
+        '422':
+          description: email has been taken or invalid
