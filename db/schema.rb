@@ -15,6 +15,10 @@ ActiveRecord::Schema.define(version: 2020_03_17_200348) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "clubs", force: :cascade do |t|
+    t.string "name"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -28,10 +32,13 @@ ActiveRecord::Schema.define(version: 2020_03_17_200348) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "users_clubs_roles", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "club_id", null: false
-    t.string "role", null: false
+  create_table "users_clubs", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "club_id"
+    t.string "roles", default: ""
+    t.index ["club_id"], name: "index_users_clubs_on_club_id"
+    t.index ["user_id", "club_id"], name: "index_users_clubs_on_user_id_and_club_id"
+    t.index ["user_id"], name: "index_users_clubs_on_user_id"
   end
 
 end
