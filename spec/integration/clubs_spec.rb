@@ -2,10 +2,54 @@ require 'swagger_helper'
 
 RSpec.describe 'Users' do
   path '/api/clubs' do
+    get 'Get clubs' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :clubs
+      description "Returns all user's clubs"
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      tags :users
+
+      let!(:users) { create_list(:user, 4) }
+      let!(:club1) { create(:club, owner_id: users.first.id).reload }
+      let!(:club2) { create(:club, owner_id: users.second.id).reload }
+      let!(:Authorization) { users.first.generate_jwt }
+
+      before do
+        create(:user_club, club: club2, user: users.first)
+        create(:club, owner_id: users.third.id) 
+      end
+
+      it "returns user's clubs" do
+        get '/api/clubs', headers: { 'Authorization' => users.first.generate_jwt }
+        expect(JSON.parse(response.body))
+          .to contain_exactly(club1.attributes, club2.attributes)
+        expect(Club.all.size).to eq(3)
+      end
+
+
+      response 200, "returns user's clubs"  do
+        run_test!
+      end
+      
+
+      response 401, 'unauthorized'  do
+        let(:Authorization) { 'wrong-jwt' }
+
+        run_test!
+      end
+    end
 
     post 'Create new club' do
       consumes 'application/json'
       produces 'application/json'
+      description "Creates new club and grants PRESIDENT role to current user"
       tags :clubs
       parameter( 
         name: :body, 
@@ -44,6 +88,52 @@ RSpec.describe 'Users' do
 
       response 422, 'name can not be empty'  do
         let(:name) { '' }
+
+        run_test!
+      end
+    end
+  end
+
+  path '/api/clubs/:id' do
+    get 'Get clubs' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :users
+      description "Returns club only if it is user's club"
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      tags :clubs
+
+      let!(:users) { create_list(:user, 4) }
+      let!(:club1) { create(:club, owner_id: users.first.id).reload }
+      let!(:club2) { create(:club, owner_id: users.second.id).reload }
+      let!(:club3) { create(:club, owner_id: users.third.id) }
+      let!(:Authorization) { users.first.generate_jwt }
+
+      before { create(:user_club, club: club2, user: users.first) }
+
+      it "returns only user's club" do
+        get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
+        expect(JSON.parse(response.body)).to eq(club2.attributes)
+      end
+
+      it "doesn't return not user's club" do
+        get "/api/clubs/#{club3.id}", headers: { 'Authorization' => users.first.generate_jwt }
+        expect(JSON.parse(response.body)).to be_empty
+      end
+
+      response 200, "returns club"  do
+        run_test!
+      end
+      
+
+      response 401, 'unauthorized'  do
+        let(:Authorization) { 'wrong-jwt' }
 
         run_test!
       end

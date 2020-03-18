@@ -1,31 +1,43 @@
 require 'swagger_helper'
 
 RSpec.describe 'Users' do
-  path '/api/users' do
-    # get 'Get users' do
-    #   consumes 'application/json'
-    #   produces 'application/json'
-    #   tags :users
-    #   parameter name: 'Authorization', in: :header, type: :string
+  # path '/api/users' do
+  #   get 'Get users' do
+  #     consumes 'application/json'
+  #     produces 'application/json'
+  #     tags :users
+  #     parameter(
+  #       in: :header, 
+  #       name: :Authorization, 
+  #       required: true,
+  #       type: :string,
+  #       example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+  #     )
+  #     tags :users
 
-    #   let!(:users) do
-    #     create_list(:user, 3)
-    #   end
+  #     let(:Authorization) { users.first.generate_jwt }
+  #     let(:users) { create_list(:user, 4) }
+  #     let(:club1) { create(:club, owner_id: users.first.id) }
+  #     let(:club2) { create(:club, owner_id: users.second.id) }
+
+  #     before do
+  #       create(:user_club, club: club2, user: users.first)
+  #     end
 
 
-    #   response 200, 'Return all the available users'  do
-    #     let(:Authorization) { users.first.generate_jwt }
+  #     response 200, 'Return all the available users'  do
+  #       let(:Authorization) { users.first.generate_jwt }
 
-    #     run_test!
-    #   end
+  #       run_test!
+  #     end
       
 
-    #   response 401, 'Return all the available users'  do
-    #     let(:Authorization) { 'wrong-jwt' }
+  #     response 401, 'Return all the available users'  do
+  #       let(:Authorization) { 'wrong-jwt' }
 
-    #     run_test!
-    #   end
-    # end
+  #       run_test!
+  #     end
+  #   end
 
     post 'Sign up' do
       consumes 'application/json'
