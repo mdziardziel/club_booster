@@ -44,7 +44,7 @@ paths:
       produces:
       - application/json
       tags:
-      - users
+      - clubs
       description: Returns all user's clubs
       parameters:
       - in: header
@@ -91,7 +91,7 @@ paths:
           description: creates new club
         '422':
           description: name can not be empty
-  "/api/clubs/:id":
+  "/api/clubs/{id}":
     get:
       summary: Get clubs
       consumes:
@@ -107,6 +107,11 @@ paths:
         required: true
         type: string
         example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
       responses:
         '200':
           description: returns club

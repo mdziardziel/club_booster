@@ -14,7 +14,6 @@ RSpec.describe 'Users' do
         type: :string,
         example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
       )
-      tags :users
 
       let!(:users) { create_list(:user, 4) }
       let!(:club1) { create(:club, owner_id: users.first.id).reload }
@@ -94,11 +93,11 @@ RSpec.describe 'Users' do
     end
   end
 
-  path '/api/clubs/:id' do
+  path '/api/clubs/{id}' do
     get 'Get clubs' do
       consumes 'application/json'
       produces 'application/json'
-      tags :users
+      tags :clubs
       description "Returns club only if it is user's club"
       parameter(
         in: :header, 
@@ -107,13 +106,22 @@ RSpec.describe 'Users' do
         type: :string,
         example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
       )
-      tags :clubs
+
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
 
       let!(:users) { create_list(:user, 4) }
       let!(:club1) { create(:club, owner_id: users.first.id).reload }
       let!(:club2) { create(:club, owner_id: users.second.id).reload }
       let!(:club3) { create(:club, owner_id: users.third.id) }
       let!(:Authorization) { users.first.generate_jwt }
+
+      let(:id) { '1' }
 
       before { create(:user_club, club: club2, user: users.first) }
 
