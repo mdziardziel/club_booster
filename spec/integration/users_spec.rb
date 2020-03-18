@@ -1,7 +1,7 @@
 require 'swagger_helper'
 
 RSpec.describe 'Users' do
-  # path '/api/users' do
+  path '/api/users' do
   #   get 'Get users' do
   #     consumes 'application/json'
   #     produces 'application/json'

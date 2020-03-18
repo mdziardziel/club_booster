@@ -37,12 +37,33 @@ paths:
         '401':
           description: invalid credentials
   "/api/clubs":
+    get:
+      summary: Get clubs
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - users
+      description: Returns all user's clubs
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      responses:
+        '200':
+          description: returns user's clubs
+        '401':
+          description: unauthorized
     post:
       summary: Create new club
       consumes:
       - application/json
       produces:
       - application/json
+      description: Creates new club and grants PRESIDENT role to current user
       tags:
       - clubs
       parameters:
@@ -70,6 +91,27 @@ paths:
           description: creates new club
         '422':
           description: name can not be empty
+  "/api/clubs/:id":
+    get:
+      summary: Get clubs
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs
+      description: Returns club only if it is user's club
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      responses:
+        '200':
+          description: returns club
+        '401':
+          description: unauthorized
   "/api/users":
     post:
       summary: Sign up
