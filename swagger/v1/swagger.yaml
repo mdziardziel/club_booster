@@ -36,6 +36,40 @@ paths:
           description: Returns jwt for authenticated user
         '401':
           description: invalid credentials
+  "/api/clubs":
+    post:
+      summary: Create new club
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            club:
+              type: object
+              required: true
+              properties:
+                name:
+                  type: string
+                  example: Warta Poznań U19
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      responses:
+        '201':
+          description: creates new club
+        '422':
+          description: name can not be empty
   "/api/users":
     post:
       summary: Sign up

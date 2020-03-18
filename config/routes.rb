@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     post '/authentication', to: 'authentication#create'
 
     resources :users, only: %i(index show)
+    resources :clubs, only: %i(create)
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

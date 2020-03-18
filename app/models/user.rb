@@ -4,7 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  validates :email, :password, presence: true
+  validates :email, presence: true
+  validates :password, presence: true, on: :create
   
   TOKEN_EXPIRATION_TIME = 100.years
 
@@ -22,6 +23,7 @@ class User < ApplicationRecord
   end
 
   def expire_previous_jwt
-    update(jwt_version: jwt_version + 1)
+    self.jwt_version = jwt_version + 1
+    update(jwt_version: jwt_version)
   end
 end
