@@ -6,6 +6,18 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.where(email: 'test_user@user.pl').first_or_create!(password: 'test_user')
-User.where(email: 'user@jwt.pl').first_or_create!(password: 'test_user')
+puts 'seeds started'
 
+user1 = User.where(email: 'test_user@user.pl').first_or_create!(password: 'test_user')
+user2 = User.where(email: 'user@jwt.pl').first_or_create!(password: 'test_user')
+puts "JWT: #{user2.generate_jwt}"
+
+club1 = Club.where(name: 'Górnik Konin U19').first_or_create!(owner_id: user1.id)
+
+# tests in seeds :p
+club1.users
+club1.users_clubs
+user1.clubs
+user1.users_clubs
+
+puts 'seeds end'
