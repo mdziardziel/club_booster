@@ -3,5 +3,7 @@ FactoryBot.define do
     sequence :name do |n|
       "Lech Poznań U#{n}"
     end
+
+    owner_id { create(:user).id }
   end
 end

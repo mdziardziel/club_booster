@@ -10,13 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_17_200348) do
+ActiveRecord::Schema.define(version: 2020_03_19_185725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "start_date", null: false
+    t.jsonb "participants", default: {}
+    t.bigint "club_id"
+    t.index ["club_id"], name: "index_events_on_club_id"
+  end
+
+  create_table "members", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "club_id"
+    t.string "roles", default: [], array: true
+    t.index ["club_id"], name: "index_members_on_club_id"
+    t.index ["user_id", "club_id"], name: "index_members_on_user_id_and_club_id"
+    t.index ["user_id"], name: "index_members_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,15 +47,6 @@ ActiveRecord::Schema.define(version: 2020_03_17_200348) do
     t.integer "jwt_version", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-  end
-
-  create_table "users_clubs", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "club_id"
-    t.string "roles", default: ""
-    t.index ["club_id"], name: "index_users_clubs_on_club_id"
-    t.index ["user_id", "club_id"], name: "index_users_clubs_on_user_id_and_club_id"
-    t.index ["user_id"], name: "index_users_clubs_on_user_id"
   end
 
 end

@@ -1,12 +1,12 @@
 class UsersController < ApiAuthorizedController
 
-  def index
-    render json: users, status: :ok
-  end
+  # def index
+  #   render json: users, status: :ok
+  # end
 
-  def show
-    render json: user
-  end
+  # def show
+  #   render json: user
+  # end
 
   private
 

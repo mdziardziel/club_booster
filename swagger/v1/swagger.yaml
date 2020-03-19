@@ -117,6 +117,49 @@ paths:
           description: returns club
         '401':
           description: unauthorized
+  "/api/clubs/{club_id}/events":
+    post:
+      summary: Create new event
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Creates new event for club
+      tags:
+      - events
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            event:
+              type: object
+              required: true
+              properties:
+                name:
+                  type: string
+                  example: Warta Poznań U19 - Lech Poznań U19
+                start_date:
+                  type: integer
+                  example: 0
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: creates new event
+        '422':
+          description: name can not be empty
   "/api/users":
     post:
       summary: Sign up

@@ -16,8 +16,8 @@ club1 = Club.where(name: 'Górnik Konin U19').first_or_create!(owner_id: user1.i
 
 # tests in seeds :p
 club1.users
-club1.users_clubs
+club1.members
 user1.clubs
-user1.users_clubs
+user1.members
 
 puts 'seeds end'

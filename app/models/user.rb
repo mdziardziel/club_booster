@@ -7,8 +7,8 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :password, presence: true, on: :create
 
-  has_many :users_clubs, class_name: 'UserClub', inverse_of: :user
-  has_many :clubs, through: :users_clubs, inverse_of: :users
+  has_many :members, inverse_of: :user
+  has_many :clubs, through: :members, inverse_of: :users
   
   TOKEN_EXPIRATION_TIME = 100.years
 
