@@ -2,7 +2,7 @@ class MembersController < ApiAuthorizedController
   include ClubMember
   include CreationHelper
 
-  before_action :authorize_only_club_members
+  before_action :authorize_only_club_members, except: %i(create)
   before_action :authorize_only_president_or_coach_role, only: %i(approve)
   before_action :authorize_only_proper_club_tokens, only: %i(create)
 
@@ -11,19 +11,27 @@ class MembersController < ApiAuthorizedController
   end
 
   def approve
-
-  end
+    member = Member.find(params[:member_id])&.update(approve_params)
+    if member
+      render json: { message: 'Member approved', data: member, errors: {}}, status: 201
+    else
+      render json: { message: 'Member not approved', data: member, errors: member.errors.messages }, status: 422
+    end  end
 
   private
 
-  def creation_params
-    prms = params.require(:member).permit(:name)
-    prms[:club_id] = params[:club_id]
-    prms[:user_id] = current_user.id
-    prms
+  def approve_params
+    params.require(:member).permit(roles: []).merge(approved: true)
   end
 
-  def proper_club_token_provided
+  def creation_params
+    {
+      club_id: params[:club_id],
+      user_id: current_user.id
+    }
+  end
+
+  def authorize_only_proper_club_tokens
     raise NotAuthorizedError if club_with_proper_token.blank?
   end
 

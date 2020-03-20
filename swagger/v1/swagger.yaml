@@ -208,6 +208,87 @@ paths:
           description: creates new group
         '422':
           description: name can not be empty
+  "/api/clubs/{club_id}/members":
+    post:
+      summary: Create new, not approved member
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - members
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            club_token:
+              type: string
+              example: 9f+jUFs0ooRIx/tD
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: creates new group
+        '401':
+          description: club token invalid
+  "/api/clubs/{club_id}/members/{member_id}/approve":
+    post:
+      summary: Approve member and set roles
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - members
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            member:
+              type: object
+              required: true
+              properties:
+                roles:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                  - PLAYER
+                  - COACH
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: member_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: creates new group
   "/api/users":
     post:
       summary: Sign up

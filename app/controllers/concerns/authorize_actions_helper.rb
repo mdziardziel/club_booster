@@ -18,6 +18,8 @@ module AuthorizeActionsHelper
   end
 
   def authorize_only_president_or_coach_role
+    authorize_only_club_members
+    
     raise NotAuthorizedError unless club_member.has_president_role? || club_member.has_coach_role?
   end
 
