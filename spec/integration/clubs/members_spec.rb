@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Events' do
+RSpec.describe 'Clubs::Events' do
   path '/api/clubs/{club_id}/members' do
     post 'Create new, not approved member' do
       consumes 'application/json'

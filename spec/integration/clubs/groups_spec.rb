@@ -1,6 +1,6 @@
 require 'swagger_helper'
 
-RSpec.describe 'Events' do
+RSpec.describe 'Clubs::Events' do
   path '/api/clubs/{club_id}/groups' do
     post 'Create new group' do
       consumes 'application/json'
