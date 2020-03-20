@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :users, only: %i(index show)
     resources :clubs, only: %i(index show create) do
       resources :events, only: %i(create)
-      resources :groups, only: %i(create)
+      resources :groups, only: %i(create update)
       resources :members, only: %i(create) do
         post :approve
       end
