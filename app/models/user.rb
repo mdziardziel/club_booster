@@ -29,4 +29,24 @@ class User < ApplicationRecord
     self.jwt_version = jwt_version + 1
     update(jwt_version: jwt_version)
   end
+
+  def events
+    clubs_ids = clubs.pluck(:id)
+    Event.where(club_id: clubs_ids).filter do |event|
+      ids = event.participants.keys
+      member_id = Member.find_by(club_id: event.club_id, user_id: id).id
+      ids.include?(member_id.to_s)
+    end
+  end
+
+  def event(event_id)
+    clubs_ids = clubs.pluck(:id)
+    event = Event.find_by(id: event_id, club_id: clubs_ids)
+    return if event.nil?
+
+    member = Member.find_by(club_id: event.club_id, user_id: id)
+    return if member.nil? || event.participants.keys.exclude?(member.id.to_s)
+
+     event
+  end
 end
