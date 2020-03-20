@@ -1,37 +1,31 @@
 class EventsController < ApiAuthorizedController
-
-  # def index
-  #   render json: current_user.clubs
-  # end
-
-  # def show
-  #   render json: club
-  # end
+  before_action :authorize_only_club_members
+  before_action :authorize_only_members_with_president_or_coach_role, only: %i(create)
 
   def create
-    raise NotAuthorizedError unless user_allowed_to_create_event?
-
     save_and_render_json
   end
 
-
   private
 
-  # def club
-  #   return {} if current_user.clubs.pluck(:id).exclude? params[:id].to_i
-    
-  #   Club.find(params[:id])
-  # end
-
-  def user_allowed_to_create_event?
-    roles = Member.find_by(club_id: params[:club_id], user_id: current_user.id)&.roles || []
-    roles.include?(Role.president) || roles.include?(Role.coach)
+  def creation_params
+    prms = event_creation_params.slice(:name)
+    prms[:club_id] = member.club_id
+    prms[:participants] = event_members_ids.each_with_object({}) { |id, hsh| hsh[id] = nil }
+    prms[:start_date] = Time.at(event_creation_params[:start_date].to_i)
+    prms
   end
 
-  def creation_params
-    prms = params.require(:event).permit(:name, :start_date)
-    prms[:club_id] = params[:club_id]
-    prms[:start_date] = Time.at(prms[:start_date].to_i)
-    prms
+  def event_creation_params
+    @event_creation_params ||= 
+      params.require(:event).permit(:name, :start_date, groups_ids: [], members_ids: [])
+  end
+
+  def event_members_ids
+    participants_ids = []
+    groups = Group.where(club_id: member.club_id, id: event_creation_params[:groups_ids])
+    groups.each { |group| participants_ids = participants_ids + group.members_ids }
+    members_ids = Member.where(club_id: member.club_id, id: event_creation_params[:members_ids]).pluck(:id)
+    (participants_ids + members_ids).uniq
   end
 end

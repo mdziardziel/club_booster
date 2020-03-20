@@ -21,7 +21,7 @@ RSpec.describe 'Users' do
       let!(:Authorization) { users.first.generate_jwt }
 
       before do
-        create(:user_club, club: club2, user: users.first)
+        create(:member, club: club2, user: users.first)
         create(:club, owner_id: users.third.id) 
       end
 
@@ -121,9 +121,9 @@ RSpec.describe 'Users' do
       let!(:club3) { create(:club, owner_id: users.third.id) }
       let!(:Authorization) { users.first.generate_jwt }
 
-      let(:id) { '1' }
+      let(:id) { club1.id }
 
-      before { create(:user_club, club: club2, user: users.first) }
+      before { create(:member, club: club2, user: users.first) }
 
       it "returns only user's club" do
         get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
@@ -132,7 +132,7 @@ RSpec.describe 'Users' do
 
       it "doesn't return not user's club" do
         get "/api/clubs/#{club3.id}", headers: { 'Authorization' => users.first.generate_jwt }
-        expect(JSON.parse(response.body)).to be_empty
+        expect(response).to have_http_status 401
       end
 
       response 200, "returns club"  do

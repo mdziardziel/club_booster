@@ -1,4 +1,5 @@
 class ClubsController < ApiAuthorizedController
+  before_action :authorize_only_club_members, only: %i(show)
 
   def index
     render json: current_user.clubs
@@ -15,9 +16,11 @@ class ClubsController < ApiAuthorizedController
   private
 
   def club
-    return {} if current_user.clubs.pluck(:id).exclude? params[:id].to_i
-    
-    Club.find(params[:id])
+    @club ||= member.club
+  end
+
+  def member
+    @member ||= Member.find_by(user_id: current_user.id, club_id: params[:id])
   end
 
   def creation_params

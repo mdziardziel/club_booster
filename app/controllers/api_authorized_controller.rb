@@ -1,17 +1,12 @@
 class ApiAuthorizedController < ApplicationController
+  include AuthorizeActionsHelper
+  include CreationHelper
+
   before_action :authenticate_user!
 
-  class NotAuthorizedError < StandardError
-    def message
-      "User is not authorized to perform this action"
-    end
-  end
+  private
 
-  rescue_from NotAuthorizedError, with: :not_authorized
-
-  private 
-
-  def not_authorized
-    render json: { message: "You are not authorized to perform this action", data: {}, errors: {}}, status: 401
+  def member
+    @member ||= Member.find_by(user_id: current_user.id, club_id: params[:club_id])
   end
 end
