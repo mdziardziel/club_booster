@@ -17,15 +17,15 @@ module AuthorizeActionsHelper
     render json: { message: "You are not authorized to perform this action", data: {}, errors: {}}, status: 401
   end
 
-  def authorize_only_members_with_president_or_coach_role
-    raise NotAuthorizedError unless member.has_president_role? || member.has_coach_role?
+  def authorize_only_president_or_coach_role
+    raise NotAuthorizedError unless club_member.has_president_role? || club_member.has_coach_role?
   end
 
   def authorize_only_club_members
-    raise NotAuthorizedError if member.blank?
+    raise NotAuthorizedError if club_member.blank?
   end
 
-  def member
+  def club_member
     raise NotImplementedError
   end
 end

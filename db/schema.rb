@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_140201) do
 
   create_table "clubs", force: :cascade do |t|
     t.string "name"
+    t.string "token"
   end
 
   create_table "events", force: :cascade do |t|
@@ -38,6 +39,7 @@ ActiveRecord::Schema.define(version: 2020_03_20_140201) do
     t.bigint "user_id"
     t.bigint "club_id"
     t.string "roles", default: [], array: true
+    t.boolean "approved", default: false
     t.index ["club_id"], name: "index_members_on_club_id"
     t.index ["user_id", "club_id"], name: "index_members_on_user_id_and_club_id"
     t.index ["user_id"], name: "index_members_on_user_id"

@@ -1,4 +1,7 @@
 class ClubsController < ApiAuthorizedController
+  include ClubMember
+  include CreationHelper
+  
   before_action :authorize_only_club_members, only: %i(show)
 
   def index
@@ -16,11 +19,7 @@ class ClubsController < ApiAuthorizedController
   private
 
   def club
-    @club ||= member.club
-  end
-
-  def member
-    @member ||= Member.find_by(user_id: current_user.id, club_id: params[:id])
+    @club ||= Club.find(params[:id])
   end
 
   def creation_params
