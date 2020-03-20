@@ -3,7 +3,7 @@ FactoryBot.define do
     sequence :name do |n|
       "Lech Poznań U#{n} - Amica Wronki U#{n}"
     end
-    start_time { 2.days.from_now.to_i }
+    start_date { 2.days.from_now }
     club
   end
 end

@@ -134,5 +134,106 @@ RSpec.describe 'Events' do
         run_test!
       end
     end
+
+    get 'get events' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :events
+
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+
+      let!(:Authorization) { user.generate_jwt }
+      let!(:club_id) { club.id }
+      let!(:club) { create(:club, owner_id: user.id) }
+      let!(:user) { create(:user) }
+
+      let(:action) { get "/api/clubs/#{club_id}/events", headers: { Authorization: user.generate_jwt } }
+
+      before do
+        create_list(:event, 3, participants: { user.members.first.id => nil }, club: club)
+        create_list(:event, 3, club: club, participants: {})
+      end
+
+      it 'returns member events' do
+        action
+        expect(JSON.parse(response.body).size).to eq(3)
+      end
+
+      response 200, 'creates new event'  do
+        run_test!
+      end
+    end
+  end
+
+  path '/api/clubs/{club_id}/events/{id}' do
+    get 'get event' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :events
+
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+
+      let!(:Authorization) { user.generate_jwt }
+      let!(:club_id) { club.id }
+      let!(:club) { create(:club, owner_id: user.id) }
+      let!(:user) { create(:user) }
+      let!(:id) { member_event.id }
+
+      let(:action) { get "/api/clubs/#{club_id}/events/#{id}", headers: { Authorization: user.generate_jwt } }
+
+      let!(:member_event) { create(:event, participants: { user.members.first.id => nil }, club: club) }
+      let!(:not_member_event) { create(:event, club: club, participants: {}) }
+
+      it 'returns member event' do
+        action
+        expect(JSON.parse(response.body)['id']).to eq(member_event.id)
+      end
+
+      context 'when not member event' do
+        let!(:id) { not_member_event.id }
+
+        it 'does not return member event' do
+          action
+          expect(JSON.parse(response.body)).to be_blank
+        end
+      end
+
+      response 200, 'creates new event'  do
+        run_test!
+      end
+    end
   end
 end

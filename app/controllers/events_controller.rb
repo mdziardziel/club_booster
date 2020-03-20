@@ -5,6 +5,14 @@ class EventsController < ApiAuthorizedController
   before_action :authorize_only_club_members
   before_action :authorize_only_president_or_coach_role, only: %i(create)
 
+  def index
+    render json: club_member.events
+  end
+
+  def show
+    render json: club_member.event(params[:id])
+  end
+
   def create
     save_and_render_json
   end
