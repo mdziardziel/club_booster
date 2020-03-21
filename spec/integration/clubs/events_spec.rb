@@ -1,6 +1,82 @@
 require 'swagger_helper'
 
 RSpec.describe 'Clubs::Events' do
+  path '/api/clubs/{club_id}/events/{event_id}/presence' do
+    post 'Approve presence or absence in event' do
+      consumes 'application/json'
+      produces 'application/json'
+      description "Creates new event for club"
+      tags 'clubs/events'
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            presence: {
+              type: :boolean,
+              required: true,
+              example: true
+            }
+          }
+        }
+      )
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :event_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+
+      let!(:body) { { presence: true } }
+      let!(:Authorization) { user.generate_jwt }
+      let!(:club_id) { club.id }
+      let!(:event_id) { event.id }
+      let!(:club) { create(:club, owner_id: user.id) }
+      let!(:event) { create(:event, club: club, participants: { club.members.first.id => nil }) }
+      let!(:user) { create(:user) }
+
+      let(:action) { post "/api/clubs/#{club_id}/events/#{event_id}/presence", params: body, headers: { Authorization: user.generate_jwt } }
+
+      context 'with presence true' do
+        let(:body) { { presence: true } }
+
+        it 'approves presence' do
+          expect { action }.to change { Event.find(event.id).participants[club.members.first.id.to_s] }.from(nil).to(true)
+        end
+      end
+
+      context 'with presence false' do
+        let(:body) { { presence: false } }
+
+        it 'approves absence' do
+          expect { action }.to change { Event.find(event.id).participants[club.members.first.id.to_s] }.from(nil).to(false)
+        end
+      end
+
+      response 201, 'approves absence or presence' do
+        run_test!
+      end
+    end
+  end
+
   path '/api/clubs/{club_id}/events' do
     post 'Create new event' do
       consumes 'application/json'

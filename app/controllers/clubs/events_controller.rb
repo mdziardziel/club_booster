@@ -17,8 +17,20 @@ module Clubs
     def create
       save_and_render_json
     end
+
+    def presence
+      if event.check_presence(club_member.id, params[:presence])
+        render json: { message: "#{params[:presence] ? 'Presence' : 'Absence'} approved", data: event, errors: {}}, status: 201
+      else
+        render json: { message: "#{params[:presence] ? 'Presence' : 'Absence'} not approved", data: event, errors: event.errors.messages }, status: 422
+      end
+    end
   
     private
+
+    def event
+      @event ||= club_member.event(params[:event_id])
+    end
   
     def creation_params
       prms = event_creation_params.slice(:name)

@@ -167,6 +167,46 @@ paths:
       responses:
         '200':
           description: creates new announcement
+  "/api/clubs/{club_id}/events/{event_id}/presence":
+    post:
+      summary: Approve presence or absence in event
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Creates new event for club
+      tags:
+      - clubs/events
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            presence:
+              type: boolean
+              required: true
+              example: true
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: event_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: approves absence or presence
   "/api/clubs/{club_id}/events":
     post:
       summary: Create new event
