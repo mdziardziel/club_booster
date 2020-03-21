@@ -10,6 +10,7 @@ class Club < ApplicationRecord
   has_many :users, through: :members, inverse_of: :clubs
   has_many :events, inverse_of: :club
   has_many :groups, inverse_of: :club
+  has_many :announcements, inverse_of: :club
 
   after_create :nominate_president
   before_create :generate_token

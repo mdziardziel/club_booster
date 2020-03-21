@@ -21,4 +21,17 @@ class Member < ApplicationRecord
 
      event
   end
+
+  def announcements
+    Announcement.where(club_id: club_id).filter do |event|
+      event.members_ids.include?(id)
+    end
+  end
+
+  def announcement(ann_id)
+    ann = Announcement.find_by(id: ann_id, club_id: club_id)
+    return if ann.nil? || ann.members_ids.exclude?(id)
+
+     ann
+  end
 end

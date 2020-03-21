@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :clubs, only: %i(index show create) do
       namespace :clubs, path: "" do
         resources :events, only: %i(index show create)
+        resources :announcements, only: %i(index show create)
         resources :groups, only: %i(create update)
         resources :members, only: %i(create) do
           post :approve
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
       end
     end
     resources :events, only: %i(index show)
+    resources :announcements, only: %i(index show)
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -49,4 +49,23 @@ class User < ApplicationRecord
 
      event
   end
+
+  def announcements
+    clubs_ids = clubs.pluck(:id)
+    Announcement.where(club_id: clubs_ids).filter do |event|
+      member_id = Member.find_by(club_id: event.club_id, user_id: id).id
+      event.members_ids.include?(member_id)
+    end
+  end
+
+  def announcement(ann_id)
+    clubs_ids = clubs.pluck(:id)
+    ann = Announcement.find_by(id: ann_id, club_id: clubs_ids)
+    return if ann.nil?
+
+    member = Member.find_by(club_id: ann.club_id, user_id: id)
+    return if member.nil? || ann.members_ids.exclude?(member.id)
+
+     ann
+  end
 end

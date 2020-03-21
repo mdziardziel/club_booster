@@ -4,6 +4,47 @@ info:
   title: API V1
   version: v1
 paths:
+  "/api/announcements":
+    get:
+      summary: get announcements for users
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - user_announcements
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      responses:
+        '200':
+          description: gets announcements
+  "/api/announcements/{id}":
+    get:
+      summary: get announcement for user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - user_announcements
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: gets announcement
   "/api/authentication":
     post:
       summary: Authenticate
@@ -36,6 +77,96 @@ paths:
           description: Returns jwt for authenticated user
         '401':
           description: invalid credentials
+  "/api/clubs/{club_id}/announcements":
+    post:
+      summary: Create new announcement
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Creates new announcement for club
+      tags:
+      - announcements
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            announcement:
+              type: object
+              required: true
+              properties:
+                content:
+                  type: string
+                  example: Warta Poznań U19 - Lech Poznań U19
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: creates new Announcement
+        '422':
+          description: name can not be empty
+    get:
+      summary: get announcements
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - announcements
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: creates new announcement
+  "/api/clubs/{club_id}/announcements/{id}":
+    get:
+      summary: get announcement
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - announcements
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: creates new announcement
   "/api/clubs/{club_id}/events":
     post:
       summary: Create new event
