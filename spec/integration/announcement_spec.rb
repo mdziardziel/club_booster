@@ -5,7 +5,7 @@ RSpec.describe 'Clubs::announcements' do
     get 'get announcements for users' do
       consumes 'application/json'
       produces 'application/json'
-      tags :user_announcements
+      tags :announcements
 
       parameter(
         in: :header, 
@@ -41,7 +41,7 @@ RSpec.describe 'Clubs::announcements' do
     get 'get announcement for user' do
       consumes 'application/json'
       produces 'application/json'
-      tags :user_announcements
+      tags :announcements
 
       parameter(
         in: :header, 

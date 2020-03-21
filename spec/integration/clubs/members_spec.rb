@@ -5,7 +5,7 @@ RSpec.describe 'Clubs::Events' do
     post 'Create new, not approved member' do
       consumes 'application/json'
       produces 'application/json'
-      tags :members
+      tags 'clubs/members'
       parameter(
         in: :header, 
         name: :Authorization, 
@@ -80,7 +80,7 @@ RSpec.describe 'Clubs::Events' do
     post 'Approve member and set roles' do
       consumes 'application/json'
       produces 'application/json'
-      tags :members
+      tags 'clubs/members'
       parameter(
         in: :header, 
         name: :Authorization, 

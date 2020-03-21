@@ -3,6 +3,7 @@ class Member < ApplicationRecord
   belongs_to :club, inverse_of: :members
 
   validates :user_id, :club_id, presence: true
+  validates :user_id, uniqueness: { scope: :club_id, message: 'one user per club available' }
 
   Role::AVAILABLE_ROLES.each do |role|
     define_method("has_#{role.downcase}_role?") { roles.include?(role) }

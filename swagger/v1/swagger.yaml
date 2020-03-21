@@ -12,7 +12,7 @@ paths:
       produces:
       - application/json
       tags:
-      - user_announcements
+      - announcements
       parameters:
       - in: header
         name: Authorization
@@ -30,7 +30,7 @@ paths:
       produces:
       - application/json
       tags:
-      - user_announcements
+      - announcements
       parameters:
       - in: header
         name: Authorization
@@ -86,7 +86,7 @@ paths:
       - application/json
       description: Creates new announcement for club
       tags:
-      - announcements
+      - clubs/announcements
       parameters:
       - name: body
         in: body
@@ -124,7 +124,7 @@ paths:
       produces:
       - application/json
       tags:
-      - announcements
+      - clubs/announcements
       parameters:
       - in: header
         name: Authorization
@@ -147,7 +147,7 @@ paths:
       produces:
       - application/json
       tags:
-      - announcements
+      - clubs/announcements
       parameters:
       - in: header
         name: Authorization
@@ -176,7 +176,7 @@ paths:
       - application/json
       description: Creates new event for club
       tags:
-      - events
+      - clubs/events
       parameters:
       - name: body
         in: body
@@ -217,7 +217,7 @@ paths:
       produces:
       - application/json
       tags:
-      - events
+      - clubs/events
       parameters:
       - in: header
         name: Authorization
@@ -240,7 +240,7 @@ paths:
       produces:
       - application/json
       tags:
-      - events
+      - clubs/events
       parameters:
       - in: header
         name: Authorization
@@ -269,7 +269,7 @@ paths:
       - application/json
       description: Creates new group for club
       tags:
-      - groups
+      - clubs/groups
       parameters:
       - name: body
         in: body
@@ -316,7 +316,7 @@ paths:
       produces:
       - application/json
       tags:
-      - groups
+      - clubs/groups
       parameters:
       - name: body
         in: body
@@ -368,7 +368,7 @@ paths:
       produces:
       - application/json
       tags:
-      - members
+      - clubs/members
       parameters:
       - in: header
         name: Authorization
@@ -403,7 +403,7 @@ paths:
       produces:
       - application/json
       tags:
-      - members
+      - clubs/members
       parameters:
       - in: header
         name: Authorization
@@ -530,7 +530,7 @@ paths:
       produces:
       - application/json
       tags:
-      - user_events
+      - events
       parameters:
       - in: header
         name: Authorization
@@ -548,7 +548,7 @@ paths:
       produces:
       - application/json
       tags:
-      - user_events
+      - events
       parameters:
       - in: header
         name: Authorization

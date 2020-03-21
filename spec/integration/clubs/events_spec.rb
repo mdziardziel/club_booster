@@ -6,7 +6,7 @@ RSpec.describe 'Clubs::Events' do
       consumes 'application/json'
       produces 'application/json'
       description "Creates new event for club"
-      tags :events
+      tags 'clubs/events'
       parameter( 
         name: :body, 
         in: :body, 
@@ -138,7 +138,7 @@ RSpec.describe 'Clubs::Events' do
     get 'get events' do
       consumes 'application/json'
       produces 'application/json'
-      tags :events
+      tags 'clubs/events'
 
       parameter(
         in: :header, 
@@ -182,7 +182,7 @@ RSpec.describe 'Clubs::Events' do
     get 'get event' do
       consumes 'application/json'
       produces 'application/json'
-      tags :events
+      tags 'clubs/events'
 
       parameter(
         in: :header, 
