@@ -573,6 +573,45 @@ paths:
         '422':
           description: name can not be empty
   "/api/clubs/{id}":
+    put:
+      summary: update club
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Updates club
+      tags:
+      - clubs
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            club:
+              type: object
+              required: true
+              properties:
+                name:
+                  type: string
+                  example: Warta Poznań U19
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '201':
+          description: updates club
+        '422':
+          description: name can not be empty
     get:
       summary: Get clubs
       consumes:

@@ -16,6 +16,10 @@ class ClubsController < ApiAuthorizedController
     save_and_render_json
   end
 
+  def update
+    update_and_render_json
+  end
+
   private
 
   def club
@@ -24,5 +28,9 @@ class ClubsController < ApiAuthorizedController
 
   def creation_params
     params.require(:club).permit(:name).merge(owner_id: current_user.id)
+  end
+
+  def update_params
+    params.require(:club).permit(:name)
   end
 end

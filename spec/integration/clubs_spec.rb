@@ -94,6 +94,66 @@ RSpec.describe 'Users' do
   end
 
   path '/api/clubs/{id}' do
+    put 'update club' do
+      consumes 'application/json'
+      produces 'application/json'
+      description "Updates club"
+      tags :clubs
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            club: {
+              type: :object,
+              required: true,
+              properties: {
+                name: { type: :string, example: 'Warta Poznań U19' }
+              }
+            }
+          }
+        }
+      )
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+
+      let!(:body) { { club: { name: name } } }
+      let!(:id) { create(:club, name: 'sdsds', owner_id: user.id).id }
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user) }
+      let(:name) { 'Warta Poznań U19' }
+      let(:action) { put "/api/clubs/#{id}", params: body, headers: { Authorization: user.generate_jwt } }
+
+      it 'updates name' do
+        expect { action }.to change { Club.find(id).name }.from('sdsds').to(name)
+      end
+
+      response 201, 'updates club'  do
+        run_test!
+      end
+
+      response 422, 'name can not be empty'  do
+        let(:name) { '' }
+
+        run_test!
+      end
+    end
+
     get 'Get clubs' do
       consumes 'application/json'
       produces 'application/json'
