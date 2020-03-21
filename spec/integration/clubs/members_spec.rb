@@ -76,6 +76,60 @@ RSpec.describe 'Clubs::Events' do
     end
   end
 
+  path '/api/clubs/{club_id}/members/{id}' do
+    put 'Update member' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags 'clubs/members'
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            member: {}
+          }
+        }
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+  
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user) }
+      let!(:club_id) { club.id }
+      let!(:body) { {} }
+      let!(:club) { create(:club, owner_id: user.id) }
+      let!(:id) { user.members.first.id }
+  
+      let(:action) { post "/api/clubs/#{club_id}/members/#{id}", params: body, headers: { Authorization: user.generate_jwt } }
+  
+      response 201, 'creates new group'  do
+        run_test!
+      end
+    end
+  end
+
   path '/api/clubs/{club_id}/members/{member_id}/approve' do
     post 'Approve member and set roles' do
       consumes 'application/json'

@@ -10,6 +10,10 @@ module Clubs
     def create
       save_and_render_json
     end
+
+    def update
+      update_and_render_json
+    end
   
     def approve
       member = Member.find(params[:member_id])&.update(approve_params)
@@ -17,7 +21,8 @@ module Clubs
         render json: { message: 'Member approved', data: member, errors: {}}, status: 201
       else
         render json: { message: 'Member not approved', data: member, errors: member.errors.messages }, status: 422
-      end  end
+      end  
+    end
   
     private
   
