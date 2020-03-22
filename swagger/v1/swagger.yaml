@@ -14,7 +14,10 @@ info:
     rolą `PRESIDENT`.\n\t Po stworzeniu klubu otrzymasz token, dzięki któremu inni
     uczestnicy będą mogli dołączyć do klubu, \t jednak będziesz musiał jeszcze zaakceptować
     ich kandydaturę przez `post /api/clubs/{club_id}/members/{member_id}/approve`.\n4.
-    Możesz dołączyć do wielu klubów, aby tego dokonać wykonaj `post /api/clubs/{club_id}/members`.\n"
+    Możesz dołączyć do wielu klubów, aby tego dokonać wykonaj `post /api/clubs/{club_id}/members`.\n5.
+    Możesz wyświetlić wydarzenia/ogłoszenia, tylko dla danego klubu, lub dla wszystkich
+    klubów.\n\t Wydarzenia/ogłoszenia w ścieżce /clubs/{club_id} dotyczą tylko wybranego
+    klubu.\n\t Widzisz wydarzenia/ogłoszenia tylko skierowane do ciebie.\n"
 paths:
   "/api/announcements":
     get:
@@ -447,6 +450,28 @@ paths:
           description: creates new group
         '401':
           description: club token invalid
+    get:
+      summary: show members
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/members
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: returns member
   "/api/clubs/{club_id}/members/{id}":
     put:
       summary: Update member
@@ -483,6 +508,33 @@ paths:
       responses:
         '201':
           description: creates new group
+    get:
+      summary: show member
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/members
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: returns member
   "/api/clubs/{club_id}/members/{member_id}/approve":
     post:
       summary: Approve member and set roles
