@@ -4,8 +4,16 @@ module Clubs
     include CreationHelper
   
     before_action :authorize_only_club_members
-    before_action :authorize_only_president_or_coach_role, only: %i(create update)
+    before_action :authorize_only_president_or_coach_role, only: %i(index show create update)
   
+    def index
+      render json: club.groups
+    end
+
+    def show
+      render json: Group.find_by(club_id: club.id, id: params[:id])
+    end
+
     def create
       save_and_render_json
     end

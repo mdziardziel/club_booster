@@ -12,7 +12,7 @@ Rails.application.routes.draw do
           post :presence
         end
         resources :announcements, only: %i(index show create)
-        resources :groups, only: %i(create update)
+        resources :groups, only: %i(index show create update)
         resources :members, only: %i(index show create update) do
           post :approve
         end

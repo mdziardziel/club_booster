@@ -316,6 +316,33 @@ paths:
         '200':
           description: creates new event
   "/api/clubs/{club_id}/groups":
+    get:
+      summary: get groups
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/groups
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: updates new group
     post:
       summary: Create new group
       consumes:
@@ -364,6 +391,33 @@ paths:
         '422':
           description: name can not be empty
   "/api/clubs/{club_id}/groups/{id}":
+    get:
+      summary: get group
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/groups
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      responses:
+        '200':
+          description: updates new group
     put:
       summary: Update group
       consumes:
