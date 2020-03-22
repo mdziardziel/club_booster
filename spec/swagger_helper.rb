@@ -29,7 +29,7 @@ RSpec.configure do |config|
           "\t Zoastaniesz automatycznie gratyfikowany rolą `PRESIDENT`.\n" \
           "\t Po stworzeniu klubu otrzymasz token, dzięki któremu inni uczestnicy będą mogli dołączyć do klubu, " \
           "\t jednak będziesz musiał jeszcze zaakceptować ich kandydaturę przez `post /api/clubs/{club_id}/members/{member_id}/approve`.\n" \
-          "4. Możesz dołączyć do wielu klubów, aby tego dokonać wykonaj `post /api/clubs/{club_id}/members`.\n"
+          "4. Możesz dołączyć do wielu klubów, aby tego dokonać wykonaj `post /api/clubs/{club_id}/members`.\n" \
           "5. Możesz wyświetlić wydarzenia/ogłoszenia, tylko dla danego klubu, lub dla wszystkich klubów.\n" \
           "\t Wydarzenia/ogłoszenia w ścieżce /clubs/{club_id} dotyczą tylko wybranego klubu.\n" \
           "\t Widzisz wydarzenia/ogłoszenia tylko skierowane do ciebie.\n"

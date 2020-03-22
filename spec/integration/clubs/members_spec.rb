@@ -74,6 +74,47 @@ RSpec.describe 'Clubs::Events' do
         run_test!
       end
     end
+
+    get 'show members' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags 'clubs/members'
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+  
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user) }
+      let!(:club_id) { club.id }
+      let!(:body) { {} }
+      let!(:club) { create(:club) }
+      let!(:member) { create(:member, user: user, club: club) }
+
+      before { create(:member, user: user, club: create(:club)) }
+  
+      let(:action) { get "/api/clubs/#{club_id}/members", headers: { Authorization: user.generate_jwt } }
+
+      it 'returns only club members' do
+        action
+        expect(JSON.parse(response.body).size).to eq(club.members.size) 
+        expect(JSON.parse(response.body).map { |x| x['id'] }).to contain_exactly(*club.members.pluck(:id))
+      end
+
+      response 200, 'returns member'  do
+        run_test!
+      end
+    end
   end
 
   path '/api/clubs/{club_id}/members/{id}' do
@@ -125,6 +166,63 @@ RSpec.describe 'Clubs::Events' do
       let(:action) { post "/api/clubs/#{club_id}/members/#{id}", params: body, headers: { Authorization: user.generate_jwt } }
   
       response 201, 'creates new group'  do
+        run_test!
+      end
+    end
+
+    get 'show member' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags 'clubs/members'
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+  
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user) }
+      let!(:club_id) { club.id }
+      let!(:body) { {} }
+      let!(:club) { create(:club) }
+      let!(:id) { member.id }
+      let!(:member) { create(:member, user: user, club: club) }
+  
+      let(:action) { get "/api/clubs/#{club_id}/members/#{id}", headers: { Authorization: user.generate_jwt } }
+
+      context 'with club member' do
+        it 'returns only club member' do
+          action
+          expect(JSON.parse(response.body)['id']).to eq(id) 
+        end
+      end
+
+      context 'with not club member' do
+        let!(:id) { create(:member, user: user, club: create(:club)).id }
+
+        it 'does not return member' do
+          action
+          expect(JSON.parse(response.body)).to be_blank 
+        end
+      end
+
+      response 200, 'returns member'  do
         run_test!
       end
     end

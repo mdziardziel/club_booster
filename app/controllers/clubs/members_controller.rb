@@ -7,6 +7,15 @@ module Clubs
     before_action :authorize_only_president_or_coach_role, only: %i(approve)
     before_action :authorize_only_proper_club_tokens, only: %i(create)
   
+    def index
+      render json: club.members
+    end
+
+    def show
+      member = Member.find_by(id: params[:id], club_id: params[:club_id])
+      render json: member
+    end
+
     def create
       save_and_render_json
     end
