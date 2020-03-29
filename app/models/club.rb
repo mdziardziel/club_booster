@@ -2,6 +2,7 @@ class Club < ApplicationRecord
   BASE_64_FORCE = 12
 
   attribute :owner_id
+  attribute :s3_presigned_url
 
   validates :name, presence: true
   validates :owner_id, presence: true, on: :create
@@ -14,6 +15,14 @@ class Club < ApplicationRecord
 
   after_create :nominate_president
   before_create :generate_token
+
+  def assign_s3_presigned_url
+    signer = Aws::S3::Presigner.new(client: AWS_CLIENT)
+
+    self.s3_presigned_url = signer.presigned_url(:put_object,
+      key: "${filename}-#{SecureRandom.uuid}",
+      bucket: ENV['S3_BUCKET'])
+  end
 
   private
 

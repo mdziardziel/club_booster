@@ -2,13 +2,15 @@ class ClubsController < ApiAuthorizedController
   include ClubMember
   include CreationHelper
   
-  before_action :authorize_only_club_members, only: %i(show)
+  before_action :authorize_only_club_members, only: %i(show update)
+  before_action :authorize_only_president_or_coach_role, only: %i(update)
 
   def index
     render json: current_user.clubs
   end
 
   def show
+    club.assign_s3_presigned_url if club_member.has_president_role? || club_member.has_coach_role?
     render json: club
   end
 
@@ -31,6 +33,6 @@ class ClubsController < ApiAuthorizedController
   end
 
   def update_params
-    params.require(:club).permit(:name)
+    params.require(:club).permit(:name, :logo_url)
   end
 end

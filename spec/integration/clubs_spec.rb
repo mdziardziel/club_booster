@@ -111,7 +111,8 @@ RSpec.describe 'Users' do
               type: :object,
               required: true,
               properties: {
-                name: { type: :string, example: 'Warta Poznań U19' }
+                name: { type: :string, example: 'Warta Poznań U19' },
+                logo_url: { type: :string, example: 'logo.png' }
               }
             }
           }
@@ -154,7 +155,7 @@ RSpec.describe 'Users' do
       end
     end
 
-    get 'Get clubs' do
+    get 'Get club' do
       consumes 'application/json'
       produces 'application/json'
       tags :clubs
@@ -180,14 +181,42 @@ RSpec.describe 'Users' do
       let!(:club2) { create(:club, owner_id: users.second.id).reload }
       let!(:club3) { create(:club, owner_id: users.third.id) }
       let!(:Authorization) { users.first.generate_jwt }
+      let(:club_member_roles) { %w(PLAYER) }
 
       let(:id) { club1.id }
 
-      before { create(:member, club: club2, user: users.first) }
+      before { create(:member, club: club2, user: users.first, roles: club_member_roles) }
 
       it "returns only user's club" do
         get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
         expect(JSON.parse(response.body)).to eq(club2.attributes)
+      end
+
+      context 'with player role' do
+        let(:club_member_roles) { %w(PLAYER) }
+
+        it "doesn't append presigned url" do
+          get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
+          expect(JSON.parse(response.body)['s3_presigned_url']).to be_nil
+        end
+      end
+
+      context 'with president role' do
+        let(:club_member_roles) { %w(PRESIDENT) }
+
+        it "doesn't append presigned url" do
+          get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
+          expect(JSON.parse(response.body)['s3_presigned_url']).to be_present
+        end
+      end
+
+      context 'with coach role' do
+        let(:club_member_roles) { %w(COACH) }
+
+        it "doesn't append presigned url" do
+          get "/api/clubs/#{club2.id}",  headers: { 'Authorization' => users.first.generate_jwt }
+          expect(JSON.parse(response.body)['s3_presigned_url']).to be_present
+        end
       end
 
       it "doesn't return not user's club" do

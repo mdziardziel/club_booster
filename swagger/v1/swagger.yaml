@@ -715,6 +715,9 @@ paths:
                 name:
                   type: string
                   example: Warta Poznań U19
+                logo_url:
+                  type: string
+                  example: logo.png
       - in: header
         name: Authorization
         required: true
@@ -731,7 +734,7 @@ paths:
         '422':
           description: name can not be empty
     get:
-      summary: Get clubs
+      summary: Get club
       consumes:
       - application/json
       produces:
