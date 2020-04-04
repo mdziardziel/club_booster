@@ -19,7 +19,10 @@ RSpec.describe 'Clubs::announcements' do
               type: :object,
               required: true,
               properties: {
-                content: { type: :string, example: 'Warta Poznań U19 - Lech Poznań U19' }              }
+                content: { type: :string, example: 'Warta Poznań U19 - Lech Poznań U19' },
+                members_ids: { type: :array, items: { type: :string }, example: [1, 2, 3] },
+                groups_ids: { type: :array, items: { type: :string }, example: [11, 12] }
+              }
             }
           }
         }
