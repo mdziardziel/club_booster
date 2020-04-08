@@ -81,6 +81,76 @@ RSpec.describe 'Users' do
     end
   end
 
+  path '/api/users/password' do
+    post 'send password reset token' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :users
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            user: {
+              type: :object,
+              required: true,
+              properties: {
+                email: { type: :string, example: 'test_user@user.pl' }
+              }
+            }
+          }
+        }
+      )
+
+      let(:body) { { user: { email: email, password: password } } }
+
+      response 201, 'send reset password email'  do
+        let(:email) { create(:user).email }
+
+        run_test!
+      end
+    end
+
+    patch 'reset password' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :users
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            user: {
+              type: :object,
+              required: true,
+              properties: {
+                reset_password_token: { type: :string, example: '6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0' },
+                password: { type: :string, example: 'ad32uh2r43fwef' },
+                password_confirmation: { type: :string, example: 'ad32uh2r43fwef' }
+              }
+            }
+          }
+        }
+      )
+
+      let(:body) { { user: { email: email, password: password } } }
+
+      response 201, 'send reset password email'  do
+        let(:reset_password_token) { '6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0' }
+        let(:password) { 'ad32uh2r43fwef' }
+        let(:password_confirmation) { 'ad32uh2r43fwef' }
+
+        run_test!
+      end
+    end
+  end
+
   # path '/api/users/{id}' do
   #   get 'Get user' do
   #     consumes 'application/json'

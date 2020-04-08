@@ -861,3 +861,62 @@ paths:
           description: creates new user
         '422':
           description: email has been taken or invalid
+  "/api/users/password":
+    post:
+      summary: send password reset token
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - users
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            user:
+              type: object
+              required: true
+              properties:
+                email:
+                  type: string
+                  example: test_user@user.pl
+      responses:
+        '201':
+          description: send reset password email
+    patch:
+      summary: reset password
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - users
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            user:
+              type: object
+              required: true
+              properties:
+                reset_password_token:
+                  type: string
+                  example: 6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0
+                password:
+                  type: string
+                  example: ad32uh2r43fwef
+                password_confirmation:
+                  type: string
+                  example: ad32uh2r43fwef
+      responses:
+        '201':
+          description: send reset password email
