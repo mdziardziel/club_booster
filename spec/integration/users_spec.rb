@@ -105,7 +105,7 @@ RSpec.describe 'Users' do
         }
       )
 
-      let(:body) { { user: { email: email, password: password } } }
+      let(:body) { { user: { email: email} } }
 
       response 201, 'send reset password email'  do
         let(:email) { create(:user).email }
@@ -130,7 +130,7 @@ RSpec.describe 'Users' do
               type: :object,
               required: true,
               properties: {
-                reset_password_token: { type: :string, example: '6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0' },
+                reset_password_token: { type: :string, example: 'Cvo6v4WvA48zP3-wqyqS' },
                 password: { type: :string, example: 'ad32uh2r43fwef' },
                 password_confirmation: { type: :string, example: 'ad32uh2r43fwef' }
               }
@@ -139,10 +139,16 @@ RSpec.describe 'Users' do
         }
       )
 
-      let(:body) { { user: { email: email, password: password } } }
+      let(:body) { { user: { reset_password_token: reset_password_token, password: password, password_confirmation: password_confirmation } } }
 
-      response 201, 'send reset password email'  do
-        let(:reset_password_token) { '6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0' }
+      let(:token) do
+        user.send_reset_password_instructions
+      end
+
+      let(:user) { create(:user) }
+
+      response 204, 'send reset password email'  do
+        let(:reset_password_token) { token }
         let(:password) { 'ad32uh2r43fwef' }
         let(:password_confirmation) { 'ad32uh2r43fwef' }
 
