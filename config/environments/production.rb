@@ -77,6 +77,7 @@ Rails.application.configure do
     user_name:            ENV['O2_USERNAME'],
     password:             ENV['O2_PASSWORD'],
     authentication:       'plain',
+    tls:                  true,
     enable_starttls_auto: true 
   }
 
