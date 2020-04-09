@@ -73,7 +73,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'poczta.o2.pl',
     port:                 465,
-    domain:               'example.com',
+    domain:               'o2.pl',
     user_name:            ENV['O2_USERNAME'],
     password:             ENV['O2_PASSWORD'],
     authentication:       'plain',
