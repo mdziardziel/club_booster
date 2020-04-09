@@ -19,7 +19,7 @@ Devise.setup do |config|
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
   config.mailer =  "Devise::Mailer"
-  # config.mailer_sender = "user@gmail.com"
+  config.mailer_sender = ENV['O2_USERNAME']
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
