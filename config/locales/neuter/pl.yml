@@ -49,7 +49,7 @@ pl:
       template:
         body: 'Błędy dotyczą następujących pól:'
         header:
-          one: "%{model} nie został zachowany z powodu jednego błędu"
-          few: "%{model} nie został zachowany z powodu %{count} błędów"
-          many: "%{model} nie został zachowany z powodu %{count} błędów"
-          other: "%{model} nie został zachowany z powodu %{count} błędów"
+          one: "%{model} nie zostało zachowane z powodu jednego błędu"
+          few: "%{model} nie zostało zachowane z powodu %{count} błędów"
+          many: "%{model} nie zostało zachowane z powodu %{count} błędów"
+          other: "%{model} nie zostało zachowane z powodu %{count} błędów"

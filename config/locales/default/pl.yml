@@ -11,6 +11,8 @@ pl:
       club:
         name: Nazwa
     errors:
+      member:
+        uniqueness_scoped: tylko jeden użytkownik na klub
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'
         restrict_dependent_destroy:

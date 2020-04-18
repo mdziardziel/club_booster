@@ -4,8 +4,8 @@ class Club < ApplicationRecord
   attribute :owner_id
   attribute :s3_presigned_url
 
-  validates :name, presence: true
-  validates :owner_id, presence: true, on: :create
+  validates :name, presence: { message: I18nForPerson.t('errors.messages.blank', :female) }
+  validates :owner_id, presence: { message: I18nForPerson.t('errors.messages.blank', :male) }, on: :create
 
   has_many :members, inverse_of: :club
   has_many :users, through: :members, inverse_of: :clubs

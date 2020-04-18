@@ -2,10 +2,11 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :validatable
+         :recoverable
   
-  validates :email, presence: true
-  validates :password, presence: true, on: :create
+  validates :email, presence: { message: I18nForPerson.t('errors.messages.blank', :male) }
+  validates :email, uniqueness: { message: I18nForPerson.t('errors.messages.taken', :male) }
+  validates :password, presence: { message: I18nForPerson.t('errors.messages.blank', :neuter) }, on: :create
 
   has_many :members, inverse_of: :user
   has_many :clubs, through: :members, inverse_of: :users
