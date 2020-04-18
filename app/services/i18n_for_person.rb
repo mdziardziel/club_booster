@@ -3,7 +3,7 @@ class I18nForPerson
 
   def self.t(path, person = nil)
     fallback = proc { I18n.t(path) }
-    current_locale = I18n.locale
+    current_locale = proc { I18n.locale }
     return fallback if PERSONED_LANGUAGES.exclude?(current_locale) || person.nil?
 
     proc { I18n.t("#{person}.#{path}", default: fallback) }
