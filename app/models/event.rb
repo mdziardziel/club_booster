@@ -1,9 +1,9 @@
 class Event < ApplicationRecord
   belongs_to :club, inverse_of: :events
 
-  validates :club_id, presence: { message: I18nForPerson.t('errors.messages.blank', :male) }
-  validates :name, presence: { message: I18nForPerson.t('errors.messages.blank', :neuter) }
-  validates :start_date, presence: { message: I18nForPerson.t('errors.messages.blank', :female) }
+  validates :club_id, presence: { message: trans('errors.messages.blank', :male) }
+  validates :name, presence: { message: trans('errors.messages.blank', :neuter) }
+  validates :start_date, presence: { message: trans('errors.messages.blank', :female) }
 
 
   def check_presence(member_id, status)
