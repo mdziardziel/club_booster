@@ -4,19 +4,13 @@ module CreationHelper
   private
   
   def save_and_render_json
-    if new_object.save
-      render json: { message: "#{model_name} created", data: new_object, errors: {}}, status: 201
-    else
-      render json: { message: "#{model_name} not created", data: new_object, errors: new_object.errors.messages }, status: 422
-    end
+    new_object.save
+    respond_with new_object
   end
 
   def update_and_render_json
-    if update_object.update(update_params)
-      render json: { message: "#{model_name} updated", data: update_object, errors: {}}, status: 201
-    else
-      render json: { message: "#{model_name} not updated", data: update_object, errors: update_object.errors.messages }, status: 422
-    end
+    update_object.update(update_params)
+    respond_with update_object
   end
 
   def model
