@@ -27,6 +27,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { group: { name: name, members_ids: members_ids } } }
       let(:Authorization) { user.generate_jwt }
@@ -138,6 +146,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { group: { name: name, members_ids: members_ids } } }
       let(:Authorization) { user.generate_jwt }
@@ -231,6 +247,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { group: { name: name, members_ids: members_ids } } }
       let(:Authorization) { user.generate_jwt }
@@ -347,6 +371,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { group: { name: name, members_ids: members_ids } } }
       let(:Authorization) { user.generate_jwt }

@@ -25,6 +25,14 @@ RSpec.describe 'Authentication' do
           }
         }
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:user) { create(:user, password: password) }
       let(:body) { { user: { email: user.email, password: password_body } } }

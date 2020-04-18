@@ -14,6 +14,14 @@ RSpec.describe 'Users' do
         type: :string,
         example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:users) { create_list(:user, 4) }
       let!(:club1) { create(:club, owner_id: users.first.id).reload }
@@ -75,6 +83,14 @@ RSpec.describe 'Users' do
         type: :string,
         example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { club: { name: name } } }
       let(:Authorization) { create(:user).generate_jwt }
@@ -132,6 +148,14 @@ RSpec.describe 'Users' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:body) { { club: { name: name } } }
       let!(:id) { create(:club, name: 'sdsds', owner_id: user.id).id }
@@ -175,6 +199,14 @@ RSpec.describe 'Users' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:users) { create_list(:user, 4) }
       let!(:club1) { create(:club, owner_id: users.first.id).reload }

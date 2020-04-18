@@ -14,6 +14,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:Authorization) { user.generate_jwt }
       let!(:user) { create(:user) }
@@ -57,6 +65,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:Authorization) { user.generate_jwt }
       let!(:club) { create(:club, owner_id: user.id) }

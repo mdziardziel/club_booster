@@ -62,6 +62,14 @@ RSpec.describe 'Users' do
           }
         }
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { user: { email: email, password: password } } }
 
@@ -104,6 +112,14 @@ RSpec.describe 'Users' do
           }
         }
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { user: { email: email} } }
 
@@ -138,6 +154,14 @@ RSpec.describe 'Users' do
           }
         }
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) { { user: { reset_password_token: reset_password_token, password: password, password_confirmation: password_confirmation } } }
 

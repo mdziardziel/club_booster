@@ -34,6 +34,11 @@ paths:
         required: true
         type: string
         example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: gets announcements
@@ -57,6 +62,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: gets announcement
@@ -87,6 +97,11 @@ paths:
                 password:
                   type: string
                   example: test_user
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: Returns jwt for authenticated user
@@ -142,6 +157,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new Announcement
@@ -166,6 +186,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: creates new announcement
@@ -194,6 +219,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: creates new announcement
@@ -234,6 +264,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: approves absence or presence
@@ -290,6 +325,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new event
@@ -314,6 +354,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: creates new event
@@ -342,6 +387,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: creates new event
@@ -370,6 +420,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: updates new group
@@ -415,6 +470,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new group
@@ -445,6 +505,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: updates new group
@@ -494,6 +559,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: updates new group
@@ -529,6 +599,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new group
@@ -553,6 +628,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: returns member
@@ -589,6 +669,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new group
@@ -616,6 +701,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: returns member
@@ -662,6 +752,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new group
@@ -681,6 +776,11 @@ paths:
         required: true
         type: string
         example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: returns user's clubs
@@ -715,6 +815,11 @@ paths:
         required: true
         type: string
         example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new club
@@ -758,6 +863,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: updates club
@@ -783,6 +893,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: returns club
@@ -803,6 +918,11 @@ paths:
         required: true
         type: string
         example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: gets events
@@ -826,6 +946,11 @@ paths:
         required: true
         type: string
         example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '200':
           description: gets event
@@ -856,6 +981,11 @@ paths:
                 password:
                   type: string
                   example: test_user
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: creates new user
@@ -885,6 +1015,11 @@ paths:
                 email:
                   type: string
                   example: test_user@user.pl
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
         '201':
           description: send reset password email
@@ -910,13 +1045,18 @@ paths:
               properties:
                 reset_password_token:
                   type: string
-                  example: 6cbe4dd42a2dd7834654d39dcc18c520787c17a8d825c8ab440d3a6f586167b0
+                  example: Cvo6v4WvA48zP3-wqyqS
                 password:
                   type: string
                   example: ad32uh2r43fwef
                 password_confirmation:
                   type: string
                   example: ad32uh2r43fwef
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
       responses:
-        '201':
+        '204':
           description: send reset password email

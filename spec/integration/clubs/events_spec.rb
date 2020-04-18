@@ -44,6 +44,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:body) { { presence: true } }
       let!(:Authorization) { user.generate_jwt }
@@ -118,6 +126,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let(:body) do
         { 
@@ -232,6 +248,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:Authorization) { user.generate_jwt }
       let!(:club_id) { club.id }
@@ -283,6 +307,14 @@ RSpec.describe 'Clubs::Events' do
         type: :string,
         example: '1'
       )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
 
       let!(:Authorization) { user.generate_jwt }
       let!(:club_id) { club.id }
