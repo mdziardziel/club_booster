@@ -6,7 +6,7 @@ class ClubsController < ApiAuthorizedController
   before_action :authorize_only_president_or_coach_role, only: %i(update)
 
   def index
-    clubs = Member.select('clubs.*', 'members.roles as member_roles').where(id: current_user.id).joins(:club)
+    clubs = Member.select('clubs.*', 'members.roles as member_roles').where(user_id: current_user.id).joins(:club)
     render json: clubs
   end
 

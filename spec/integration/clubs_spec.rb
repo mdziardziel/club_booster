@@ -36,7 +36,8 @@ RSpec.describe 'Users' do
       it "returns user's clubs" do
         get '/api/clubs', headers: { 'Authorization' => users.first.generate_jwt }
         expect(JSON.parse(response.body))
-          .to contain_exactly(club1.attributes, club2.attributes)
+          .to contain_exactly(club1.attributes.merge('member_roles' => ['PRESIDENT']).slice('id', 'name', 'logo_url', 'member_roles', 'token'),
+                               club2.attributes.merge('member_roles' => ['PLAYER']).slice('id', 'name', 'logo_url', 'member_roles', 'token'))
         expect(Club.all.size).to eq(3)
       end
 
