@@ -27,10 +27,14 @@ class ApplicationController < ActionController::API
 
     if params[:data].nil?
       if params[:data_attributes].nil?
-        params[:data] = resource
+        params[:data] = resource.attributes
       else
-        params[:data] = resource.slice(params[:data_attributes])
+        params[:data] = resource.attributes.slice(params[:data_attributes])
       end
+    end
+
+    if params[:additional_data].present?
+      params[:data].merge(params[:additional_data])
     end
 
     render json: { 
