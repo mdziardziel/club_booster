@@ -1060,3 +1060,21 @@ paths:
       responses:
         '204':
           description: send reset password email
+  "/api/users/current":
+    get:
+      summary: Get current user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - users
+      parameters:
+      - name: Authorization
+        in: header
+        type: string
+      responses:
+        '200':
+          description: Return current user
+        '401':
+          description: ''

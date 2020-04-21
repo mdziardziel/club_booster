@@ -181,32 +181,34 @@ RSpec.describe 'Users' do
     end
   end
 
-  # path '/api/users/{id}' do
-  #   get 'Get user' do
-  #     consumes 'application/json'
-  #     produces 'application/json'
-  #     tags :users
-  #     parameter name: 'Authorization', in: :header, type: :string
-  #     parameter name: :id, in: :path, type: :integer
+  path '/api/users/current' do
+    get 'Get current user' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags :users
+      parameter name: 'Authorization', in: :header, type: :string
 
-  #     let!(:user) do
-  #       create(:user)
-  #     end
+      let!(:user) do
+        create(:user)
+      end
 
+      it 'returns current user'  do
+        get '/api/users/current', headers: { Authorization: user.generate_jwt } 
+        expect(JSON.parse(response.body)).to eq(user.attributes.slice(*UsersController::SERIALIZE_ATTRIBUTES))
+      end
 
-  #     response 200, 'Return all the available users'  do
-  #       let(:Authorization) { user.generate_jwt }
-  #       let(:id) { user.id }
+      response 200, 'Return current user'  do
+        let(:Authorization) { user.generate_jwt }
 
-  #       run_test!
-  #     end
+        run_test!
+      end
 
-  #     response 401, 'Return all the available users'  do
-  #       let(:Authorization) { 'wrong-jwt' }
-  #       let(:id) { user.id }
+      response 401, ''  do
+        let(:Authorization) { 'wrong-jwt' }
+        let(:id) { user.id }
 
-  #       run_test!
-  #     end
-  #   end
-  # end
+        run_test!
+      end
+    end
+  end
 end

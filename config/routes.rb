@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     devise_for :users, only: %i(registrations passwords)
     post '/authentication', to: 'authentication#create'
 
-    resources :users, only: %i(index show)
+    resources :users, only: %i(show)
     resources :clubs, only: %i(index show create update) do
       namespace :clubs, path: "" do
         resources :events, only: %i(index show create) do

@@ -20,4 +20,23 @@ club1.members
 user1.clubs
 user1.members
 
+
+
+des1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus euismod maximus rutrum. Donec est enim, gravida at magna nec, mollis rutrum dolor. Vivamus id quam eget lorem convallis dapibus vitae in tortor. Duis id imperdiet mauris. Donec ornare sit amet ligula ut aliquet. Integer mattis nibh sit amet tempor scelerisque. Donec et sollicitudin erat, in lobortis diam. Nam scelerisque nisi odio, vitae aliquet erat mollis quis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam maximus nec quam fringilla consequat. Donec vehicula, leo at aliquet congue, mi sem eleifend ex, quis interdum nulla lacus viverra sem. Pellentesque tristique justo vel vestibulum accumsan. Mauris ac tortor et lacus feugiat vehicula et ut velit. Fusce magna orci, sollicitudin at nunc in, porta dictum nunc. '
+des2 = 'Nam blandit consequat turpis id ornare. Aliquam erat volutpat. Vivamus sollicitudin pharetra ipsum, ut porta purus pretium vitae. Morbi lobortis eros non ante consectetur tristique. Phasellus vitae dictum risus. Proin ipsum odio, mollis a urna ac, varius lobortis metus. Vivamus a enim at diam porttitor dapibus. Aenean fermentum bibendum quam, at eleifend mi commodo et. In in molestie sem, semper pulvinar nunc. Maecenas ultrices quam ut bibendum rhoncus. Vivamus commodo libero sed massa dapibus efficitur. Nunc tincidunt dignissim mi et tincidunt. Integer venenatis risus ut interdum mattis. Curabitur ante ex, pharetra ut viverra vitae, iaculis in purus. Ut id blandit tellus, ut accumsan metus. '
+
+
+user3 = User.where(email: 'filled@user.pl').first_or_create!(password: 'test_user', 
+                                                             name: 'Andrzej', 
+                                                             surname: 'Duda', 
+                                                             birth_date: 20.years.ago, 
+                                                             personal_description: des1,
+                                                             career_description: des2,
+                                                             avatar_url: 'https://avatarfiles.alphacoders.com/218/thumb-218445.jpg')
+
+club2 = Club.where(name: 'Warta Poznań U17').first_or_create!(owner_id: user3.id)
+club3 = Club.where(name: 'Widzew Łódź U17').first_or_create!(owner_id: user2.id)
+
+Member.where(user_id: user3.id, club_id: club3.id).first_or_create!(roles: ['PLAYER'], approved: true)
+
 puts 'seeds end'
