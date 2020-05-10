@@ -34,3 +34,6 @@ en:
     errors:
       member:
         one_user_per_club_available: one user per club available
+      event:
+        start_date_after_end_date: can't be after end date
+        end_date_before_start_date: can't be before start date

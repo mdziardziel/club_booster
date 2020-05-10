@@ -107,6 +107,8 @@ RSpec.describe 'Clubs::Events' do
                 members_ids: { type: :array, items: { type: :string }, example: [1, 2, 3] },
                 groups_ids: { type: :array, items: { type: :string }, example: [11, 12] },
                 start_date: { type: :integer, example: 0 }
+                end_date: { type: :integer, example: 112 }
+                symbol: { type: :string, example: 'T' }
               }
             }
           }
@@ -139,7 +141,9 @@ RSpec.describe 'Clubs::Events' do
         { 
           event: { 
             name: name, 
-            start_date: 2.days.from_now.to_i, 
+            start_date: 3.days.from_now.to_i, 
+            end_date: 2.days.from_now.to_i, 
+            symbol: 'T', 
             groups_ids: groups_ids,
             members_ids: members_ids
           } 

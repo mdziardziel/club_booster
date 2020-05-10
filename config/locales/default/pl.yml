@@ -5,6 +5,9 @@ pl:
       user: Użytkownik
       club: Klub
     attributes:
+      event:
+        start_date: Data rozpoczęcia
+        end_date: Data zakończenia
       user:
         email: Email
         password: Hasło
@@ -13,6 +16,9 @@ pl:
     errors:
       member:
         uniqueness_scoped: tylko jeden użytkownik na klub
+      event:
+        start_date_after_end_date: nie może rozpoczynać się po dacie zakończenia
+        end_date_before_start_date: nie może rozpoczynać się przed datą rozpoczęcia
       messages:
         record_invalid: 'Negatywne sprawdzenie poprawności: %{errors}'
         restrict_dependent_destroy:

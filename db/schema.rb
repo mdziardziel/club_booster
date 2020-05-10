@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_21_170637) do
+ActiveRecord::Schema.define(version: 2020_05_10_202814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,8 @@ ActiveRecord::Schema.define(version: 2020_04_21_170637) do
     t.datetime "start_date", null: false
     t.jsonb "participants", default: {}
     t.bigint "club_id"
+    t.datetime "end_date"
+    t.string "symbol"
     t.index ["club_id"], name: "index_events_on_club_id"
   end
 

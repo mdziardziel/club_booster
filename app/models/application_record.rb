@@ -5,4 +5,8 @@ class ApplicationRecord < ActiveRecord::Base
   def self.trans(path, person = nil)
     I18nForPerson.t(path, person)
   end
+
+  def trans(path, person = nil)
+    I18nForPerson.t(path, person)
+  end
 end
