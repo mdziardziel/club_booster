@@ -1,5 +1,11 @@
 class Event < ApplicationRecord
   SYMBOLS = %w(T M).freeze
+  COLORS_PER_SYMBOL = {
+    'T' => '#0000FF',
+    'M' => '#32CD32'
+  }
+  
+  attribute :color
 
   belongs_to :club, inverse_of: :events
 
@@ -29,6 +35,10 @@ class Event < ApplicationRecord
   end
 
   private
+
+  def color
+    COLORS_PER_SYMBOL[symbol]
+  end
 
   def start_before_end
     return if start_date.nil? || end_date.nil?
