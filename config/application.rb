@@ -40,35 +40,42 @@ module ClubBooster
 
     config.middleware.insert_before 0, Rack::Cors do
       allowed_headers = %i(get post put patch delete options head)
+
+      # not safety, but it is just app for university :)
       allow do
-        origins 'http://localhost:3000'
+        origins '*'
         resource '*', headers: :any, methods: allowed_headers
       end
       
-      allow do
-        origins 'http://localhost:4200'
-        resource '*', headers: :any, methods: allowed_headers
-      end
+      # allow do
+      #   origins 'http://localhost:3000'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
+      
+      # allow do
+      #   origins 'http://localhost:4200'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
 
-      allow do
-        origins 'http://localhost:80'
-        resource '*', headers: :any, methods: allowed_headers
-      end
+      # allow do
+      #   origins 'http://localhost:80'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
 
-      allow do
-        origins 'http://localhost:8080'
-        resource '*', headers: :any, methods: allowed_headers
-      end
+      # allow do
+      #   origins 'http://localhost:8080'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
 
-      allow do
-        origins 'http://localhost'
-        resource '*', headers: :any, methods: allowed_headers
-      end
+      # allow do
+      #   origins 'http://localhost'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
 
-      allow do
-        origins 'https://murmuring-sea-67113.herokuapp.com'
-        resource '*', headers: :any, methods: allowed_headers
-      end
+      # allow do
+      #   origins 'https://murmuring-sea-67113.herokuapp.com'
+      #   resource '*', headers: :any, methods: allowed_headers
+      # end
     end
   end
 end
