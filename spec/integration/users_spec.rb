@@ -211,4 +211,66 @@ RSpec.describe 'Users' do
       end
     end
   end
+
+  path '/api/users' do
+    put 'update club' do
+      consumes 'application/json'
+      produces 'application/json'
+      description "Updates club"
+      tags :clubs
+      parameter( 
+        name: :body, 
+        in: :body, 
+        required: true,
+        schema: { 
+          type: :object, 
+          required: true,
+          properties: { 
+            user: {
+              type: :object,
+              required: true,
+              properties: {
+                name: { type: :string, example: 'John' },
+                surname: { type: :string, example: 'Cena' },
+                birth_date: { type: :string, example: '2020-05-11T21:16:10.280+02:00' },
+                avatar_url: { type: :string, example: 'logo.png' },
+                personal_description: { type: :string, example: 'lalala' },
+                career_description: { type: :string, example: 'dadada' }
+              }
+            }
+          }
+        }
+      )
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
+
+      let!(:body) { { user: { name: name } } }
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user, name: 'John') }
+      let(:name) { 'Obi' }
+      let(:action) { put "/api/users", params: body, headers: { Authorization: user.generate_jwt } }
+
+      it 'updates name' do
+        expect { action }.to change { User.find(user.id).name }.from('John').to('Obi')
+      end
+
+      response 201, 'updates club'  do
+        run_test!
+      end
+
+    end
+  end
 end

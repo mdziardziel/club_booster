@@ -315,6 +315,12 @@ paths:
                 start_date:
                   type: integer
                   example: 0
+                end_date:
+                  type: integer
+                  example: 112
+                symbol:
+                  type: string
+                  example: T
       - in: header
         name: Authorization
         required: true
@@ -991,6 +997,58 @@ paths:
           description: creates new user
         '422':
           description: email has been taken or invalid
+    put:
+      summary: update club
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Updates club
+      tags:
+      - clubs
+      parameters:
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          required: true
+          properties:
+            user:
+              type: object
+              required: true
+              properties:
+                name:
+                  type: string
+                  example: John
+                surname:
+                  type: string
+                  example: Cena
+                birth_date:
+                  type: string
+                  example: '2020-05-11T21:16:10.280+02:00'
+                avatar_url:
+                  type: string
+                  example: logo.png
+                personal_description:
+                  type: string
+                  example: lalala
+                career_description:
+                  type: string
+                  example: dadada
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
+      responses:
+        '201':
+          description: updates club
   "/api/users/password":
     post:
       summary: send password reset token

@@ -106,8 +106,8 @@ RSpec.describe 'Clubs::Events' do
                 name: { type: :string, example: 'Warta Poznań U19 - Lech Poznań U19' },
                 members_ids: { type: :array, items: { type: :string }, example: [1, 2, 3] },
                 groups_ids: { type: :array, items: { type: :string }, example: [11, 12] },
-                start_date: { type: :integer, example: 0 }
-                end_date: { type: :integer, example: 112 }
+                start_date: { type: :integer, example: 0 },
+                end_date: { type: :integer, example: 112 },
                 symbol: { type: :string, example: 'T' }
               }
             }

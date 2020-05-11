@@ -8,4 +8,15 @@ class UsersController < ApiAuthorizedController
       render json: {}
     end
   end
+
+  def update
+    current_user.update!(update_params)
+    respond_with current_user, { data_attribute: [:name, :surname, :personal_description, :career_description, :avatar_url] }
+  end
+
+  private
+
+  def update_params
+    params.require(:user).permit(:name, :surname, :personal_description, :career_description, :avatar_url) 
+  end
 end
