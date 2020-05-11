@@ -998,14 +998,14 @@ paths:
         '422':
           description: email has been taken or invalid
     put:
-      summary: update club
+      summary: update current user
       consumes:
       - application/json
       produces:
       - application/json
-      description: Updates club
+      description: Updates current user
       tags:
-      - clubs
+      - users
       parameters:
       - name: body
         in: body

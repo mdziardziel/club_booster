@@ -213,11 +213,11 @@ RSpec.describe 'Users' do
   end
 
   path '/api/users' do
-    put 'update club' do
+    put 'update current user' do
       consumes 'application/json'
       produces 'application/json'
-      description "Updates club"
-      tags :clubs
+      description "Updates current user"
+      tags :users
       parameter( 
         name: :body, 
         in: :body, 
