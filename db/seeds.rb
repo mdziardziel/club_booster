@@ -37,6 +37,20 @@ user3 = User.where(email: 'filled@user.pl').first_or_create!(password: 'test_use
 club2 = Club.where(name: 'Warta Poznań U17').first_or_create!(owner_id: user3.id)
 club3 = Club.where(name: 'Widzew Łódź U17').first_or_create!(owner_id: user2.id)
 
+club2_user1 = Member.where(user_id: user1.id, club_id: club2.id).first_or_create!(roles: ['PLAYER'])
+club2_user2 = Member.where(user_id: user2.id, club_id: club2.id).first_or_create!(roles: ['PLAYER'])
+club2_user3 = Member.where(user_id: user3.id, club_id: club2.id).first_or_create!
+
+
+ev1 = Event.where(name: 'training1', club_id: club2.id).first_or_create!(start_date: 3.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'training2', club_id: club2.id).first_or_create!(start_date: 3.days.ago, end_date: 2.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'training3', club_id: club2.id).first_or_create!(start_date: 4.days.ago, end_date: 3.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'training4', club_id: club2.id).first_or_create!(start_date: 5.days.ago, end_date: 4.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'Match1', club_id: club2.id).first_or_create!(start_date: 3.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'Match2', club_id: club2.id).first_or_create!(start_date: 4.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'Match3', club_id: club2.id).first_or_create!(start_date: 5.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev1 = Event.where(name: 'Match4', club_id: club2.id).first_or_create!(start_date: 6.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+
 Member.where(user_id: user3.id, club_id: club3.id).first_or_create!(roles: ['PLAYER'], approved: true)
 
 puts 'seeds end'
