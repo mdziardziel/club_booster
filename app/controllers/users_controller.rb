@@ -11,7 +11,7 @@ class UsersController < ApiAuthorizedController
 
   def update
     current_user.update!(update_params)
-    respond_with current_user, { data_attribute: [:name, :surname, :personal_description, :career_description, :avatar_url] }
+    respond_with current_user, { data_attributes: [:name, :surname, :personal_description, :career_description, :avatar_url] }
   end
 
   private
