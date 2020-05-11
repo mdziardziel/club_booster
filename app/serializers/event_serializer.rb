@@ -10,6 +10,6 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def title
-    object.name
+    object.symbol
   end
 end
