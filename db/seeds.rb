@@ -43,13 +43,24 @@ club2_user3 = Member.where(user_id: user3.id, club_id: club2.id).first_or_create
 
 
 ev1 = Event.where(name: 'training1', club_id: club2.id).first_or_create!(start_date: 3.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'training2', club_id: club2.id).first_or_create!(start_date: 3.days.ago, end_date: 2.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'training3', club_id: club2.id).first_or_create!(start_date: 4.days.ago, end_date: 3.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'training4', club_id: club2.id).first_or_create!(start_date: 5.days.ago, end_date: 4.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'Match1', club_id: club2.id).first_or_create!(start_date: 3.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'Match2', club_id: club2.id).first_or_create!(start_date: 4.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'Match3', club_id: club2.id).first_or_create!(start_date: 5.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
-ev1 = Event.where(name: 'Match4', club_id: club2.id).first_or_create!(start_date: 6.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev2 = Event.where(name: 'training2', club_id: club2.id).first_or_create!(start_date: 3.days.ago, end_date: 2.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev3 = Event.where(name: 'training3', club_id: club2.id).first_or_create!(start_date: 4.days.ago, end_date: 3.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev4 = Event.where(name: 'training4', club_id: club2.id).first_or_create!(start_date: 5.days.ago, end_date: 4.days.ago, symbol: 'T', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev5 = Event.where(name: 'Match1', club_id: club2.id).first_or_create!(start_date: 3.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev6 = Event.where(name: 'Match2', club_id: club2.id).first_or_create!(start_date: 4.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev7 = Event.where(name: 'Match3', club_id: club2.id).first_or_create!(start_date: 5.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+ev8 = Event.where(name: 'Match4', club_id: club2.id).first_or_create!(start_date: 6.days.ago, symbol: 'M', participants: { club2_user3.id.to_s => true, club2_user2.id.to_s => nil, club2_user1.id.to_s => false })
+
+
+ev1.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev2.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev3.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev4.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev5.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev6.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev7.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+ev8.update(description: 'Nunc aliquet metus augue, ac facilisis augue interdum vel. In maximus arcu mi, in rhoncus sapien finibus in. Curabitur nec libero placerat, volutpat turpis et, tincidunt orci. Phasellus eleifend dictum augue, ')
+
 
 Member.where(user_id: user3.id, club_id: club3.id).first_or_create!(roles: ['PLAYER'], approved: true)
 
