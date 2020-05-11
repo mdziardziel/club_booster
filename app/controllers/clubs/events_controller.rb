@@ -7,11 +7,11 @@ module Clubs
     before_action :authorize_only_president_or_coach_role, only: %i(create)
   
     def index
-      render json: club_member.events
+      render json: club_member.events, each_serializer: EventSerializer
     end
   
     def show
-      render json: club_member.event(params[:id])
+      render json: club_member.event(params[:id]), serializer: EventSerializer
     end
   
     def create

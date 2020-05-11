@@ -34,7 +34,11 @@ class ApplicationController < ActionController::API
     end
 
     if params[:additional_data].present?
-      params[:data].merge(params[:additional_data])
+      params[:data] = params[:data].merge(params[:additional_data])
+    end
+
+    if params[:translate_data_keys].present?
+      params[:data] = params[:data].merge(params[:data].each_with_object({}) { |key, value| params[value] = params[key] })
     end
 
     render json: { 
