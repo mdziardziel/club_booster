@@ -29,7 +29,7 @@ class ApplicationController < ActionController::API
       if params[:data_attributes].nil?
         params[:data] = resource.attributes
       else
-        params[:data] = resource.attributes.slice(params[:data_attributes])
+        params[:data] = resource.attributes.slice(*params[:data_attributes])
       end
     end
 
