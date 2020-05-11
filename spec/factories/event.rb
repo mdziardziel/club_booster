@@ -5,7 +5,7 @@ FactoryBot.define do
     end
     start_date { 3.days.from_now }
     end_date { 2.days.from_now }
-    symbol { Event::Symbols.first }
+    symbol { Event::SYMBOLS.first }
     club
   end
 end

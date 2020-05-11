@@ -81,7 +81,7 @@ RSpec.describe 'Clubs::Events' do
 
       let(:action) { get "/api/events/#{id}", headers: { Authorization: user.generate_jwt } }
 
-      let!(:user_event) { create(:event, club: club, participants: { user.members.first.id => nil }, club: club) }
+      let!(:user_event) { create(:event, club: club, participants: { user.members.first.id => nil }) }
       let!(:not_user_event) { create(:event, club: club, participants: {}) }
 
       it 'returns member event' do

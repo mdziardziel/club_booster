@@ -108,7 +108,8 @@ RSpec.describe 'Clubs::Events' do
                 groups_ids: { type: :array, items: { type: :string }, example: [11, 12] },
                 start_date: { type: :integer, example: 0 },
                 end_date: { type: :integer, example: 112 },
-                symbol: { type: :string, example: 'T' }
+                symbol: { type: :string, example: 'T' },
+                description: { type: :string, example: 'lalala' }
               }
             }
           }
