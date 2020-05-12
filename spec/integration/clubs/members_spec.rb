@@ -1,11 +1,11 @@
 require 'swagger_helper'
 
 RSpec.describe 'Clubs::Events' do
-  path '/api/clubs/{club_id}/members' do
+  path '/api/clubs/join' do
     post 'Create new, not approved member' do
       consumes 'application/json'
       produces 'application/json'
-      tags 'clubs/members'
+      tags 'clubs'
       parameter(
         in: :header, 
         name: :Authorization, 
@@ -29,13 +29,6 @@ RSpec.describe 'Clubs::Events' do
         }
       )
       parameter(
-        in: :path, 
-        name: :club_id, 
-        required: true,
-        type: :string,
-        example: '1'
-      )
-      parameter(
         in: :query, 
         name: :locale, 
         required: false,
@@ -51,7 +44,7 @@ RSpec.describe 'Clubs::Events' do
       let!(:club) { create(:club) }
       let!(:club_token) { club.token }
 
-      let(:action) { post "/api/clubs/#{club_id}/members", params: body, headers: { Authorization: user.generate_jwt } }
+      let(:action) { post "/api/clubs/join", params: body, headers: { Authorization: user.generate_jwt } }
 
       context 'when user provides proper club token' do
         it 'creates member' do
@@ -82,7 +75,9 @@ RSpec.describe 'Clubs::Events' do
         run_test!
       end
     end
+  end
 
+  path '/api/clubs/{club_id}/members' do
     get 'show members' do
       consumes 'application/json'
       produces 'application/json'

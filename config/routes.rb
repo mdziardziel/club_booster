@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
   scope :api, defaults: { format: :json }  do
+    namespace :clubs do
+      post '/join', to: 'members#create'
+    end
     put '/users', to: 'users#update'
     devise_for :users, only: %i(registrations passwords)
     post '/authentication', to: 'authentication#create'
@@ -14,7 +17,7 @@ Rails.application.routes.draw do
         end
         resources :announcements, only: %i(index show create)
         resources :groups, only: %i(index show create update)
-        resources :members, only: %i(index show create update) do
+        resources :members, only: %i(index show update) do
           post :approve
         end
       end

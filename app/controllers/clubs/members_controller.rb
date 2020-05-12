@@ -3,9 +3,9 @@ module Clubs
     include ClubMember
     include CreationHelper
   
+    before_action :authorize_only_proper_club_tokens, only: %i(create)
     before_action :authorize_only_club_members, except: %i(create)
     before_action :authorize_only_president_or_coach_role, only: %i(approve)
-    before_action :authorize_only_proper_club_tokens, only: %i(create)
   
     def index
       render json: club.members
@@ -41,6 +41,13 @@ module Clubs
   
     def creation_params
       {
+        club_id: club_with_proper_token.id,
+        user_id: current_user.id
+      }
+    end
+
+    def update_params
+      {
         club_id: params[:club_id],
         user_id: current_user.id
       }
@@ -52,7 +59,11 @@ module Clubs
   
     def club_with_proper_token
       @club_with_proper_token ||= 
-        Club.find_by(id: params[:club_id], token: params[:club_token])
+        Club.find_by(token: params[:club_token])
+    end
+
+    def club
+      @club ||= club_with_proper_token || Club.find(params[:club_id])
     end
   end
 end

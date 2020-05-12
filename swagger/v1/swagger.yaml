@@ -321,6 +321,9 @@ paths:
                 symbol:
                   type: string
                   example: T
+                description:
+                  type: string
+                  example: lalala
       - in: header
         name: Authorization
         required: true
@@ -575,7 +578,7 @@ paths:
           description: updates new group
         '422':
           description: name can not be empty
-  "/api/clubs/{club_id}/members":
+  "/api/clubs/join":
     post:
       summary: Create new, not approved member
       consumes:
@@ -583,7 +586,7 @@ paths:
       produces:
       - application/json
       tags:
-      - clubs/members
+      - clubs
       parameters:
       - in: header
         name: Authorization
@@ -600,11 +603,6 @@ paths:
             club_token:
               type: string
               example: 9f+jUFs0ooRIx/tD
-      - in: path
-        name: club_id
-        required: true
-        type: string
-        example: '1'
       - in: query
         name: locale
         required: false
@@ -615,6 +613,7 @@ paths:
           description: creates new group
         '401':
           description: club token invalid
+  "/api/clubs/{club_id}/members":
     get:
       summary: show members
       consumes:
