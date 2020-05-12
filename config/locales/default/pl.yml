@@ -14,7 +14,7 @@ pl:
       club:
         name: Nazwa
       member:
-        user: Użytkownik
+        user_id: Użytkownik
     errors:
       member:
         uniqueness_scoped: tylko jeden użytkownik na klub
