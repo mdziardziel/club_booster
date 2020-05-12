@@ -33,11 +33,9 @@ module Clubs
     end
   
     def creation_params
-      prms = event_creation_params.slice(:name, :symbol, :description)
+      prms = event_creation_params.slice(:name, :symbol, :description, :start_date, :end_date)
       prms[:club_id] = params[:club_id]
       prms[:participants] = event_members_ids.each_with_object({}) { |id, hsh| hsh[id] = nil }
-      prms[:start_date] = Time.at(event_creation_params[:start_date].to_i)
-      prms[:end_date] = Time.at(event_creation_params[:end_date].to_i) if event_creation_params[:end_date].present?
       prms
     end
   
