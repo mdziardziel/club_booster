@@ -12,7 +12,7 @@ class ClubsController < ApiAuthorizedController
 
   def show
     club.assign_s3_presigned_url if club_member.has_president_role? || club_member.has_coach_role?
-    render json: club
+    render json: club.attributes.merge(member_roles: Member.find_by(club_id: club.id, user_id: current_user.id).roles)
   end
 
   def create
