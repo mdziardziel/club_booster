@@ -18,6 +18,7 @@ pl:
     errors:
       member:
         uniqueness_scoped: tylko jeden użytkownik na klub
+        one_user_per_club_available: może dołączyć tylko raz do tego samego klubu.
       event:
         start_date_after_end_date: nie może rozpoczynać się po dacie zakończenia
         end_date_before_start_date: nie może rozpoczynać się przed datą rozpoczęcia
