@@ -13,6 +13,8 @@ pl:
         password: Hasło
       club:
         name: Nazwa
+      member:
+        user: Użytkownik
     errors:
       member:
         uniqueness_scoped: tylko jeden użytkownik na klub

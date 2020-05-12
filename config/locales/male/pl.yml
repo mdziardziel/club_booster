@@ -3,6 +3,8 @@ pl:
   male:
     activerecord:
       errors:
+        member:
+          one_user_per_club_available: może dołączyć tylko raz do tego samego klubu.
         messages:
           restrict_dependent_destroy:
             has_one: Nie może zostać usunięty, gdyż istnieje zależny od niego %{record}
