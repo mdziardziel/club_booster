@@ -14,7 +14,7 @@ module AuthorizeActionsHelper
   private 
 
   def not_authorized
-    render json: { message: "You are not authorized to perform this action", data: {}, errors: {}}, status: 401
+    render json: { message: "You are not authorized to perform this action", data: {}, errors: {}}, status: 403
   end
 
   def authorize_only_president_or_coach_role
