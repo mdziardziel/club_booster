@@ -17,6 +17,8 @@ class Club < ApplicationRecord
   before_create :generate_token
 
   def assign_s3_presigned_url
+    return false
+
     signer = Aws::S3::Presigner.new(client: AWS_CLIENT)
 
     self.s3_presigned_url = signer.presigned_url(:put_object,
