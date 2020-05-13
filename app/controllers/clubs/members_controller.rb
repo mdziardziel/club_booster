@@ -5,7 +5,7 @@ module Clubs
   
     before_action :authorize_only_proper_club_tokens, only: %i(create)
     before_action :authorize_only_club_members, except: %i(create)
-    before_action :authorize_only_president_or_coach_role, only: %i(approve)
+    before_action :authorize_only_president_or_coach_role, only: %i(approve delete)
   
     def index
       render json: club.members
@@ -22,6 +22,11 @@ module Clubs
 
     def update
       update_and_render_json
+    end
+
+    def destroy
+      member = Member.find(params[:id]).destroy
+      respond_with member, { method: :delete }
     end
   
     def approve

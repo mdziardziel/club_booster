@@ -68,12 +68,6 @@ RSpec.describe 'Clubs::Events' do
       response 201, 'creates new group'  do
         run_test!
       end
-
-      response 401, 'club token invalid'  do
-        let(:club_token) { 'f4q4rfij93' }
-
-        run_test!
-      end
     end
   end
 
@@ -185,6 +179,58 @@ RSpec.describe 'Clubs::Events' do
       let(:action) { post "/api/clubs/#{club_id}/members/#{id}", params: body, headers: { Authorization: user.generate_jwt } }
   
       response 201, 'creates new group'  do
+        run_test!
+      end
+    end
+
+    delete 'remove member' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags 'clubs/members'
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
+  
+      let!(:Authorization) { user.generate_jwt }
+      let!(:user) { create(:user) }
+      let!(:club_id) { club.id }
+      let!(:body) { {} }
+      let!(:club) { create(:club, owner_id: user.id) }
+      let!(:id) { user.members.first.id }
+  
+      let(:action) { delete "/api/clubs/#{club_id}/members/#{id}", headers: { Authorization: user.generate_jwt } }
+  
+      it 'removes member' do
+        expect { action }.to change { Member.all.count }.by(-1)
+      end
+
+      response 200, 'removes member'  do
         run_test!
       end
     end

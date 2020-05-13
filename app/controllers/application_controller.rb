@@ -9,8 +9,16 @@ class ApplicationController < ActionController::API
   end
 
   def respond_with(resource, params = {})
+    if params[:method].nil?
+      params[:method] = :post
+    end
+
     if params[:status].nil?
-      params[:status] = resource.errors.empty? ? 201 : 422
+      status = {
+        positive: { post: 201, put: 200, patch: 200, delete: 200 },
+        negative: { post: 422, put: 422, patch: 422, delete: 422 }
+      }
+      params[:status] = resource.errors.empty? ? status[:positive][params[:method]] : status[:negative][params[:method]]
     end
 
     if params[:message].nil?

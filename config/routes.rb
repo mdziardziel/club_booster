@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace :clubs do
       post '/join', to: 'members#create'
     end
+    delete '/clubs/:id/leave', to: 'clubs#leave'
     put '/users', to: 'users#update'
     devise_for :users, only: %i(registrations passwords)
     post '/authentication', to: 'authentication#create'
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
         end
         resources :announcements, only: %i(index show create)
         resources :groups, only: %i(index show create update)
-        resources :members, only: %i(index show update) do
+        resources :members, only: %i(index show update destroy) do
           post :approve
         end
       end

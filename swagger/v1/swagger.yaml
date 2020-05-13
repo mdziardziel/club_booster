@@ -611,8 +611,6 @@ paths:
       responses:
         '201':
           description: creates new group
-        '401':
-          description: club token invalid
   "/api/clubs/{club_id}/members":
     get:
       summary: show members
@@ -682,6 +680,38 @@ paths:
       responses:
         '201':
           description: creates new group
+    delete:
+      summary: remove member
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/members
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
+      responses:
+        '200':
+          description: removes member
     get:
       summary: show member
       consumes:
@@ -908,6 +938,35 @@ paths:
           description: returns club
         '401':
           description: unauthorized
+  "/api/clubs/{id}/leave":
+    delete:
+      summary: leave club
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      description: Updates club
+      tags:
+      - clubs
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
+      responses:
+        '200':
+          description: leaves club
   "/api/events":
     get:
       summary: get events for users

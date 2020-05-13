@@ -23,6 +23,16 @@ class ClubsController < ApiAuthorizedController
     update_and_render_json
   end
 
+  def leave
+    member = Member.find_by(user_id: current_user.id, club_id: club.id)
+    if member.present?
+      member.destroy
+      respond_with member, { method: :delete }
+    else
+      render json: {}, status: 404
+    end
+  end
+
   private
 
   def club
