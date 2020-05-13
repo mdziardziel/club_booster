@@ -1,5 +1,6 @@
 ---
 pl:
+  not_authorized: Twoje uprawnienia sa niewystarczające
   activerecord:
     models:
       user: Użytkownik
