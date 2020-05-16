@@ -1,5 +1,5 @@
 class MemberSerializer < ActiveModel::Serializer
-  attributes :roles, :club_id, :user_id, :id, :name, :surname, :approved
+  attributes :roles, :club_id, :user_id, :id, :name, :surname, :approved, :avatar_url
 
   def name
     object.user.name
@@ -7,5 +7,9 @@ class MemberSerializer < ActiveModel::Serializer
 
   def surname
     object.user.surname
+  end
+
+  def avatar_url
+    object.user.avatar_url
   end
 end
