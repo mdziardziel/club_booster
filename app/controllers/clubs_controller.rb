@@ -7,7 +7,7 @@ class ClubsController < ApiAuthorizedController
 
   def index
     clubs = Member.select('clubs.*', 'members.roles as member_roles').where(user_id: current_user.id).joins(:club)
-    render json: clubs
+    render json: clubs, each_serializer: nil
   end
 
   def show
