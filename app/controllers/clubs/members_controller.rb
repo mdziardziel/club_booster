@@ -8,12 +8,12 @@ module Clubs
     before_action :authorize_only_president_or_coach_role, only: %i(approve delete)
   
     def index
-      render json: club.members
+      render json: club.members, each_serializer: MemberSerializer
     end
 
     def show
       member = Member.find_by(id: params[:id], club_id: params[:club_id])
-      render json: member
+      render json: member, serializer: MemberSerializer
     end
 
     def create
