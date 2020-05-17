@@ -22,7 +22,7 @@ class MemberSerializer < ActiveModel::Serializer
   end
 
   def birth_date
-    user.birth_date
+    user.birth_date&.to_date
   end
 
   def can_remove
