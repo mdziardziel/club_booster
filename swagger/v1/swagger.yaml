@@ -578,6 +578,38 @@ paths:
           description: updates new group
         '422':
           description: name can not be empty
+    delete:
+      summary: Removes group
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      tags:
+      - clubs/groups
+      parameters:
+      - in: header
+        name: Authorization
+        required: true
+        type: string
+        example: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE
+      - in: path
+        name: club_id
+        required: true
+        type: string
+        example: '1'
+      - in: path
+        name: id
+        required: true
+        type: string
+        example: '1'
+      - in: query
+        name: locale
+        required: false
+        type: string
+        example: pl
+      responses:
+        '200':
+          description: updates new group
   "/api/clubs/join":
     post:
       summary: Create new, not approved member

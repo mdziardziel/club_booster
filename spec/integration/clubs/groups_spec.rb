@@ -456,5 +456,103 @@ RSpec.describe 'Clubs::Events' do
         run_test!
       end
     end
+
+    delete 'Removes group' do
+      consumes 'application/json'
+      produces 'application/json'
+      tags 'clubs/groups'
+
+      parameter(
+        in: :header, 
+        name: :Authorization, 
+        required: true,
+        type: :string,
+        example: 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOjIsInZlciI6MSwiZXhwIjo0NzQwMjMyOTkyfQ.pFrhdrKLPY2iDUOiqBgyioFtEz3qzEYYt8dFx997vOE'
+      )
+      parameter(
+        in: :path, 
+        name: :club_id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :path, 
+        name: :id, 
+        required: true,
+        type: :string,
+        example: '1'
+      )
+      parameter(
+        in: :query, 
+        name: :locale, 
+        required: false,
+        type: :string,
+        example: 'pl'
+      )
+      let(:locale) { 'pl' }
+
+      let(:body) { { group: { name: name, members_ids: members_ids } } }
+      let(:Authorization) { user.generate_jwt }
+      let(:club_id) { club.id }
+      let(:club) { create(:club, owner_id: user.id) }
+      let(:user) { create(:user) }
+      let(:members_ids) { club.members.pluck(:id) }
+      let(:name) { 'Warta Poznań U19 - Lech Poznań U19' }
+      let!(:group) { create(:group, club: club, name: 'abba', members_ids: []) }
+      let(:id) { group.id }
+
+      let(:action) { delete "/api/clubs/#{club_id}/groups/#{id}", params: body, headers: { Authorization: user.generate_jwt } }
+
+      context 'when user has president role in this club' do
+        it 'updates group' do
+          expect { action }.to change { Group.all.size }.by(-1)
+        end
+      end
+
+      context 'when user has president role in other club' do
+        let(:club_id) { create(:club).id }
+
+        it 'does not update group' do
+          expect { action }.not_to change { Group.all.size }
+        end
+      end
+
+      context 'when user has coach role in this club' do
+        let(:club) { create(:club) }
+
+        before { create(:member, club_id: club_id, user_id: user.id, roles: [Role.coach]) }
+
+        it 'updates group' do
+          expect { action }.to change { Group.all.size }.by(-1) 
+        end
+      end
+
+      context 'when user has coach role in other club' do
+        let(:club) { create(:club) }
+
+        before { create(:member, club_id: create(:club).id, user_id: user.id, roles: [Role.coach]) }
+
+        it 'does not update group' do
+          expect { action }.not_to change { Group.all.size }
+        
+        end
+      end
+
+      context 'when user has player role in this club' do
+        let(:club) { create(:club) }
+
+        before { create(:member, club_id: club_id, user_id: user.id, roles: [Role.player]) }
+
+        it 'does not update group' do
+          expect { action }.not_to change { Group.all.size }
+      
+        end
+      end
+
+      response 200, 'updates new group'  do
+        run_test!
+      end
+    end
   end
 end

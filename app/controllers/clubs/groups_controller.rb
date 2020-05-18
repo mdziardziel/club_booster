@@ -4,7 +4,7 @@ module Clubs
     include CreationHelper
   
     before_action :authorize_only_club_members
-    before_action :authorize_only_president_or_coach_role, only: %i(index show create update)
+    before_action :authorize_only_president_or_coach_role, only: %i(destroy index show create update)
   
     def index
       render json: club.groups
@@ -20,6 +20,11 @@ module Clubs
   
     def update
       update_and_render_json
+    end
+
+    def destroy
+      group = Group.find_by(club_id: club.id, id: params[:id]).destroy
+      render json: group
     end
   
     private

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
           post :presence
         end
         resources :announcements, only: %i(index show create)
-        resources :groups, only: %i(index show create update)
+        resources :groups, only: %i(index show create update destroy)
         resources :members, only: %i(index show update destroy) do
           post :approve
         end
