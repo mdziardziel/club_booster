@@ -21,13 +21,6 @@ RSpec.describe 'Clubs::Events' do
         example: '1'
       )
       parameter(
-        in: :path, 
-        name: :id, 
-        required: true,
-        type: :string,
-        example: '1'
-      )
-      parameter(
         in: :query, 
         name: :locale, 
         required: false,
