@@ -7,12 +7,12 @@ class ClubsController < ApiAuthorizedController
 
   def index
     clubs = Member.select('clubs.*', 'members.roles as member_roles').where(user_id: current_user.id).joins(:club)
-    render json: clubs, each_serializer: nil
+    render json: clubs, each_serializer: ClubSerializer, current_user: current_user
   end
 
   def show
     club.assign_s3_presigned_url if club_member.has_president_role? || club_member.has_coach_role?
-    render json: club.attributes.merge(member_roles: Member.find_by(club_id: club.id, user_id: current_user.id).roles)
+    render json: club, serializer: ClubSerializer, current_user: current_user
   end
 
   def create

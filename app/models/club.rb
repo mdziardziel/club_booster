@@ -17,7 +17,7 @@ class Club < ApplicationRecord
   before_create :generate_token
 
   def assign_s3_presigned_url
-    return false
+    return false # disabled as aws is not used for now
 
     signer = Aws::S3::Presigner.new(client: AWS_CLIENT)
 
@@ -25,6 +25,7 @@ class Club < ApplicationRecord
       key: "${filename}-#{SecureRandom.uuid}",
       bucket: ENV['S3_BUCKET'])
   end
+
 
   private
 
