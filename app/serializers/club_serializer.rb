@@ -2,7 +2,7 @@ class ClubSerializer < ActiveModel::Serializer
   attributes :id, :name, :token, :logo_url, :member_roles
 
   def logo_url
-    return nil if object.logo_url.nil?
+    return nil if object.logo_url.blank?
 
     DROPBOX_CLIENT.get_temporary_link "/dropbox/#{object.logo_url}"
   rescue
